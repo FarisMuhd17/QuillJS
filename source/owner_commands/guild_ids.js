@@ -1,9 +1,10 @@
 module.exports = {
 	name: 'guild_ids',
-	async execute(client) {
-		console.log("Guild IDs:")
+	async execute(client, message) {
+		let returnValue = ""
 		client.guilds.cache.forEach(guild => {
-			console.log(guild.id)
+			returnValue += guild.id + "\n"
 		})
+		await message.channel.send('```' + returnValue + '```')
 	}
 }

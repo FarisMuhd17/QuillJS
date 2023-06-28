@@ -31,7 +31,7 @@ async function load_commands(guild) {
 			{ body: commands }
 		)
 
-		console.log(`Loaded ${data.length} : ${guild.name} | ${guild.id}`)
+		console.log(`Loaded ${data.length} : ${guild.id}`)
 	} catch (error) {
 		console.error(error)
 	}
@@ -62,7 +62,7 @@ client.on('messageCreate', (message) => {
 			console.log(owner_commands)
 		}
 
-		command.execute(client)
+		command.execute(client, message)
 	}
 })
 

@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'stop',
-	async execute(client) {
+	async execute(client, message) {
 		client.destroy()
 	}
 }
