@@ -20,7 +20,9 @@ const client = new Client({
 })
 
 const rest = new REST({version: '10'}).setToken(TOKEN)
+
 const commands = []
+const owner_commands = []
 
 async function load_commands(guild) {
 	try {
@@ -47,26 +49,20 @@ client.on('ready', () => {
 client.on('messageCreate', (message) => {
 	if (message.author.bot) return
 
-	if (message.author.id == OWNER_ID) {
-		switch (message.content) {
-			case "q.stop":
-				client.destroy()
-				break
+	if (message.author.id == OWNER_ID && message.content.startsWith('q.')) {
+		let command = null
 
-			case "q.guild_ids":
-				console.log("Guild IDs:")
-				client.guilds.cache[0].forEach(guild => {
-					console.log(guild.id)
-				})
-				break
-
-			case "q.guild_names":
-				console.log("Guild Names:")
-				client.guilds.cache[0].forEach(guild => {
-					console.log(guild.name)
-				})
-				break			
+		for (let i = 0; i < owner_commands.length; i++) {
+			if (message.content.startsWith("q." + owner_commands[i]['name'])) {
+				command = owner_commands[i]
+			}
 		}
+
+		if (!command) {
+			console.log(owner_commands)
+		}
+
+		command.execute(client)
 	}
 })
 
@@ -89,11 +85,11 @@ client.on('interactionCreate', async (interaction) => {
 	command.execute(interaction)
 })
 
-const foldersPath = path.join(__dirname, 'commands')
-const commandFolders = fs.readdirSync(foldersPath)
+const commandsFoldersPath = path.join(__dirname, 'commands')
+const commandFolders = fs.readdirSync(commandsFoldersPath)
 
 for (const folder of commandFolders) {
-	const commandsPath = path.join(foldersPath, folder)
+	const commandsPath = path.join(commandsFoldersPath, folder)
 	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'))
 
 	for (const file of commandFiles) {
@@ -106,8 +102,22 @@ for (const folder of commandFolders) {
 
 			commands.push(command_data)
 		} else {
-			console.warn(`${filePath} is missing 'data' or 'execute' property`)
+			console.warn(`${filePath} is missing required 'data' or 'execute' property`)
 		}
+	}
+}
+
+const ownercommandsFoldersPath = path.join(__dirname, 'owner_commands')
+const ownercommandFiles = fs.readdirSync(ownercommandsFoldersPath).filter(file => file.endsWith('.js'))
+
+for (const file of ownercommandFiles) {
+	const filePath = path.join(ownercommandsFoldersPath, file)
+	const command = require(filePath)
+
+	if ('name' in command && 'execute' in command) {
+		owner_commands.push(command)
+	} else {
+		console.warn(`${filePath} is missing required 'name' or 'execute' property`)
 	}
 }
 
