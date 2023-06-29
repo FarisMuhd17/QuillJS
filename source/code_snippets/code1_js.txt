@@ -1,0 +1,36 @@
+const fs = require('fs')
+const path = require('path')
+
+function get_everything (directory, getFolders, getFiles) {
+	let all_folders = [] // All folders found inside the directory
+	let all_files = []   // All files found inside the directory
+
+	function recursive_get(path_) {
+		let all_objects = fs.readdirSync(path_) // Get all files and folders in the directory
+
+		for (let i = 0; i < all_objects.length; i++) { // Loop through 'all_objects'
+			if (fs.lstatSync(path.join(path_, all_objects[i])).isDirectory()) { // Whether the current object is a folder
+				if (getFolders) { // To check whether folders should be stored
+					all_folders.push(path.join(path_, all_objects[i]))
+				}
+            	recursive_get(path.join(path_, all_objects[i])) // Calling the recursive function to the current subfolder to go through the same process
+			} else {
+				if (getFiles) { // To check whether files should be stored
+					all_files.push(path.join(path_, all_objects[i]))
+				}
+			}
+		}
+	}
+
+	recursive_get(directory) // Calling recursive function for the inputted directory
+
+	return {
+		folders: all_folders,
+		files: all_files
+	}
+}
+
+let get_folders = true // Set to whether you want to gather folders in the output
+let get_files = true   // Set to whether you want to gather files in the output
+
+let output = get_everything('C:/path/to/a/folder', get_folders, get_files)

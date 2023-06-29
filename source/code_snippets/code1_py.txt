@@ -1,0 +1,31 @@
+import os
+
+def get_values(directory, getFolders, getFiles):
+    all_folders = []
+    all_files = []
+
+    def recursive_get(path_):
+        all_objects = os.listdir(path_) # Get all files and folders in current directory
+
+        for obj in all_objects: # Iterate through all files and folders
+            obj_path = os.path.join(path_, obj)
+
+            if os.path.isdir(obj_path): # If path is a folder
+                if getFolders: # Whether it is specified to get folders
+                    all_folders.append(obj_path)
+                recursive_get(obj_path)
+            else: # If path is file
+                if getFiles: # Whether it is specified to get files
+                    all_files.append(obj_path)
+
+    recursive_get(directory)
+
+    return {
+        'folders': all_folders,
+        'files': all_files
+    }
+
+get_folders = true # Set to whether you want to gather folders in the output
+get_files = true   # Set to whether you want to gather files in the output
+
+output = get_everything('C:/path/to/a/folder', get_folders, get_files)

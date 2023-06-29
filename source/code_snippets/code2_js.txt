@@ -1,0 +1,68 @@
+const fs = require('fs')
+const path = require('path')
+
+function get_values(directory, getFolders, getFiles) {
+	let all_folders = []
+	let all_files = []
+
+	function recursive_get(path_) {
+		let all_objects = fs.readdirSync(path_)
+
+		for (let i = 0; i < all_objects.length; i++) {
+			if (fs.lstatSync(path.join(path_, all_objects[i])).isDirectory()) {
+				if (getFolders) {
+					all_folders.push(path.join(path_, all_objects[i]))
+				}
+            	recursive_get(path.join(path_, all_objects[i]))
+			} else {
+				if (getFiles) {
+					all_files.push(path.join(path_, all_objects[i]))
+				}
+			}
+		}
+	}
+
+	recursive_get(directory)
+
+	return {
+		folders: all_folders,
+		files: all_files
+	}
+}
+
+// The above lines are from the following snippet:
+// 'Get all files and folders in a directory'
+
+function search(defUnder, checkFolders, checkFiles, condition) {
+	let found = [] // To store all the found files and folders that meet the condition
+	let defUnderData = get_values(defUnder, true, checkFiles) // Get all files and folders under the directory that is definetly above the file / folder that is being searched
+
+	if (checkFolders) { // Whether folders should be checked for
+		for (let i = 0; i < defUnderData['folders'].length; i++) { // Iterate through all folders
+			if (condition(path.join(defUnder, defUnderData['folders'][i]))) { // Adds the folder to the 'found' variable if it meets the condition
+				found.push(defUnderData['folders'][i])
+			}
+		}
+	}
+
+	if (checkFiles) { // Whether files should be checked for
+		for (let i = 0; i < defUnderData['files'].length; i++) { // Iterate through all the files
+			if (condition(path.join(defUnder, defUnderData['files'][i]))) { // Adds the file to the 'found' variable if it meets the condition
+				found.push(defUnderData['files'][i])
+			}
+		}
+	}
+
+	return found
+}
+
+let check_folders = true // Whether to check for folders
+let check_files = true   // Whether to check for files
+
+let searchExample = search('C:/path/to/some/folder', check_folders, check_files, (input) => { // 'input' is the name of the file / folder
+	// Any code you want to check for the file / folder*
+	// Example: To check if the file / folders ends with '.js'
+	if (input.endsWith('.js')) {
+		return true
+	}
+})

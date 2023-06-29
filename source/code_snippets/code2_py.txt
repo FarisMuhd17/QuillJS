@@ -1,0 +1,51 @@
+import os
+
+def get_values(directory, getFolders, getFiles):
+    all_folders = []
+    all_files = []
+
+    def recursive_get(path_):
+        all_objects = os.listdir(path_)
+
+        for obj in all_objects:
+            obj_path = os.path.join(path_, obj)
+
+            if os.path.isdir(obj_path):
+                if getFolders:
+                    all_folders.append(obj_path)
+                recursive_get(obj_path)
+            else:
+                if getFiles:
+                    all_files.append(obj_path)
+
+    recursive_get(directory)
+
+    return {
+        'folders': all_folders,
+        'files': all_files
+    }
+
+def search(defUnder, checkFolders, checkFiles, condition):
+    found = []
+    defUnderData = get_values(defUnder, True, checkFiles)
+
+    if checkFolders:
+        for folder in defUnderData['folders']:
+            if condition(os.path.join(defUnder, folder)):
+                found.append(folder)
+
+    if checkFiles:
+        for file in defUnderData['files']:
+            if condition(os.path.join(defUnder, file)):
+                found.append(file)
+
+    return found
+
+
+check_folders = True # Whether folders should be checked
+check_files = True   # Whether files should be checked
+
+def example_condition(path):
+	return path.endswith('.json') # Function returns true with the path ends with '.json'
+
+searchExample = search('C:/path/to/some/folder', check_folders, check_files, example_condition)
