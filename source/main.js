@@ -59,7 +59,7 @@ client.on('messageCreate', (message) => {
 		}
 
 		if (!command) {
-			console.log(owner_commands)
+			return
 		}
 
 		command.execute(client, message)
