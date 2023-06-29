@@ -1,4 +1,6 @@
-const { SlashCommandBuilder } = require('discord.js')
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
+const path = require('path')
+const fs = require('fs')
 
 const ADMIN_COMMANDS = "```\
 - ban** user\n\n\
@@ -72,6 +74,7 @@ module.exports = {
 			.addChoices(
 				{ name: 'Admin', value: 'admin' },
 				{ name: 'Chess', value: 'chess' },
+				{ name: 'Code', value: 'code' },
 				{ name: 'Math', value: 'math' },
 				{ name: 'Misc', value: 'misc' },
 				{ name: 'Random', value: 'random' },
@@ -81,34 +84,31 @@ module.exports = {
 		),
 
 	async execute(interaction) {
-		switch (interaction.options.getString('type')) {
-			case 'admin':
-				await interaction.reply(ADMIN_COMMANDS)
-				break
+		const commandsFolder = path.dirname(__dirname)
+		const commandsSubfolders = fs.readdirSync(commandsFolder)
 
-			case 'chess':
-				await interaction.reply(CHESS_COMMANDS)
-				break
+		let files = ""
 
-			case 'math':
-				await interaction.reply(MATH_COMMANDS)
+		for (folder of commandsSubfolders) {
+			if (folder === interaction.options.getString('type')) {
+				const typeFolder = path.join(commandsFolder, folder)
+				files = fs.readdirSync(typeFolder)
+					.filter(file => file.endsWith('.js')).toString()
+					.replaceAll('.js', '')
+					.replaceAll(',', '\n')
 				break
-
-			case 'misc':
-				await interaction.reply(MISC_COMMANDS)
-				break
-
-			case 'random':
-				await interaction.reply(RANDOM_COMMANDS)
-				break
-
-			case 'science':
-				await interaction.reply(SCIENCE_COMMANDS)
-				break
-
-			case 'time':
-				await interaction.reply(TIME_COMMANDS)
-				break
+			}
 		}
+
+		let embed = new EmbedBuilder()
+			.setTitle(interaction.options.getString('type').toUpperCase())
+			.setDescription(files)
+			.setColor([31, 64, 194])
+			.setAuthor({
+				name: interaction.user.username,
+				iconURL: interaction.user.displayAvatarURL()
+			})
+
+		await interaction.reply({ embeds: [embed], ephemeral: true })
 	}
 }
