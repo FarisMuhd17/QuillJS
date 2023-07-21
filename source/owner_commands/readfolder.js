@@ -12,7 +12,7 @@ module.exports = {
 
 		let folder = ""
 		for (let i = 1; i < message.content.split(' ').length; i++) {
-			folder += message.content.split(' ')[i].replaceAll('DIRNAME', path.dirname(path.dirname(__dirname)))
+			folder += message.content.split(' ')[i].replaceAll('#', path.dirname(path.dirname(__dirname)))
 		}
 		
 		if (!fs.existsSync(folder)) {

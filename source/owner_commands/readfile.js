@@ -11,7 +11,7 @@ module.exports = {
 
 		let file = ""
 		for (let i = 1; i < message.content.split(' ').length; i++) {
-			file += message.content.split(' ')[i].replaceAll('DIRNAME', path.dirname(path.dirname(__dirname)))
+			file += message.content.split(' ')[i].replaceAll('#', path.dirname(path.dirname(__dirname)))
 		}
 		
 		if (!fs.existsSync(file)) {
