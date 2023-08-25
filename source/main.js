@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, Routes, Collection } = require('discord.js')
+const { Client, GatewayIntentBits, Routes, Collection, EmbedBuilder } = require('discord.js')
 const { REST } = require('@discordjs/rest')
 const { config } = require('dotenv')
 const fs = require('fs')
@@ -9,6 +9,7 @@ config()
 const OWNER_ID = parseInt(process.env.OWNER_ID)
 const TOKEN = process.env.TOKEN
 const CLIENT_ID = process.env.CLIENT_ID
+const CONSOLE_CHANNEL_ID = process.env.CONSOLE_CHANNEL_ID
 
 const client = new Client({
 	intents: [
@@ -45,23 +46,34 @@ client.on('ready', () => {
 			await load_command(guild)
 		})()
 	})
+
+	let now = new Date()
+	client.channels.cache.get(CONSOLE_CHANNEL_ID).send({ embeds: [ new EmbedBuilder()
+		.setTitle('Online')
+		.setDescription(`${now.getUTCDate()}/${now.getUTCMonth()}/${now.getUTCFullYear()} - ${now.getUTCHours()}:${now.getUTCMinutes()}:${now.getUTCSeconds()}`)
+		.setColor([31, 64, 194])
+	]})
 })
 
 client.on('messageCreate', (message) => {
 	if (message.author.bot) return
 
+	if (message.channel.id === '1078963255235588207') {
+		message.delete()
+	}
+
 	if (message.author.id == OWNER_ID && message.content.startsWith('q.')) {
 		let command = null
 
-		for (let i = 0; i < owner_commands.length; i++) {
-			if (message.content.startsWith("q." + owner_commands[i]['name'])) {
-				command = owner_commands[i]
-			}
-		}
+		for (let i = 0; i < owner_commands.length; i++) { if (message.content.startsWith("q." + owner_commands[i]['name'])) {
+			command = owner_commands[i]
+			break
+		}}
 
 		if (!command) return
 
 		command.execute(client, message)
+		message.delete()
 	}
 })
 

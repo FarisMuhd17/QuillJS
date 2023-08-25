@@ -62,11 +62,11 @@ function findFormula(inputs) {
 
         let commonAdditive = tList[0]
         let coefficient = commonAdditive / factorial(polynomialDegree)
-        let equation = `+ ${coefficient !== 1 ? coefficient + '*' : ''} x ** ${polynomialDegree} `
+        let equation = `+ ${coefficient !== 1 ? coefficient + '*' : ''} x ${polynomialDegree !== 1 ? '** ' + polynomialDegree.toString() : ''} `
 
         let newValues = []
         for (let i = 0; i < inputValues.length - 1; i++) {
-            let eqnt = equation.replaceAll(' ', '').replace(/x/g, i + 1)
+            let eqnt = equation.replaceAll(' ', '').replaceAll('x', i + 1)
             eqnt = eqnt.substring(1)
             newValues.push(inputValues[i] - eval(eqnt))
         }
@@ -82,7 +82,7 @@ function findFormula(inputs) {
         .replaceAll(' ', '')
         .slice(1)
 
-    let constant = inputs[0] - eval(result.replace('x', 1))
+    let constant = inputs[0] - eval(result.replaceAll('x', 1))
 
     if (parseInt(constant) === 0) {
         return formatEquation(result)

@@ -25,13 +25,19 @@ module.exports = {
 		formula = formula.replace(/ /g, "")
 		values = values.replace(/ /g, "")
 
-		numlist = values.split(',')
-
 		formula = formula.replace(/pi/g, "3.141592653589793")
 		formula = formula.replace(/e/g, "2.718281828459045")
 		formula = formula.replace(/tau/g, "6.283185307179586")
 		formula = formula.replace(/euler_gamma/g, "0.5772156649015329")
 		formula = formula.replace(/phi/g, "1.618033988749894")
+
+		values = values.replace(/pi/g, "3.141592653589793")
+		values = values.replace(/e/g, "2.718281828459045")
+		values = values.replace(/tau/g, "6.283185307179586")
+		values = values.replace(/euler_gamma/g, "0.5772156649015329")
+		values = values.replace(/phi/g, "1.618033988749894")
+
+		numlist = values.split(',')
 
 		numdict = {}
 
@@ -57,7 +63,7 @@ module.exports = {
 
 		for (character of formula) {
 			if (!allowed_chars.includes(character)) {
-				await interaction.reply(formula)
+				await interaction.reply(`\`${formula}\` is an invalid formula\nValue of \`${character}\` is unknown`)
 				return
 			}
 		}
