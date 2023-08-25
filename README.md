@@ -9,6 +9,12 @@ An all in one discord bot made using the discord.js library
 - randint
 - randoption
 
+### Time
+
+- utc
+- days_for_month
+- day_of_week
+
 ### Math
 
 - remainder
@@ -35,15 +41,10 @@ An all in one discord bot made using the discord.js library
 - natural_log
 - pascals_triangle
 - ci_amount
-- reduce_fraction
 - quadratic_equation
 - angle_radian_conversion
-
-### Time
-
-- utc
-- days_for_month
-- day_of_week
+- antifactorial
+- polynomial_from_outputs
 
 ### Misc
 

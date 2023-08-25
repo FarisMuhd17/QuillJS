@@ -29,6 +29,6 @@ module.exports = {
 		let number = interaction.options.getInteger('number')
 		let af = antifactorial(number)
 
-		interaction.reply(af ? af.toString() : `Antifactorial of ${number} does not exist`)
+		await interaction.reply(af ? af.toString() : `Antifactorial of ${number} does not exist`)
 	}
 }

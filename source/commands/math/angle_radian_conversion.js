@@ -26,11 +26,11 @@ module.exports = {
 
 		switch (convert_to) {
 			case 'radians':
-				interaction.reply((value * pi / 180).toString())
+				await interaction.reply((value * pi / 180).toString())
 				break
 
 			case 'angles':
-				interaction.reply((180 * value / pi).toString())
+				await interaction.reply((180 * value / pi).toString())
 				break
 		}
 	}
