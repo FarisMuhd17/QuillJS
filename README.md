@@ -1,3 +1,76 @@
-# **Quill.js**
+# Quill.js
 
 An all in one discord bot made using the discord.js library
+
+## Commands
+
+### Random
+
+- randint
+- randoption
+
+### Math
+
+- remainder
+- hypotenuse
+- constant
+- exponent
+- percentage
+- average
+- factorial
+- change_base
+- sin
+- cos
+- tan
+- hyperfactorial
+- fibonacci
+- reciprocal
+- sum_till
+- factors
+- use_formula
+- summation
+- twonum
+- sum_ap
+- herons_formula
+- natural_log
+- pascals_triangle
+- ci_amount
+- reduce_fraction
+- quadratic_equation
+- angle_radian_conversion
+
+### Time
+
+- utc
+- days_for_month
+- day_of_week
+
+### Misc
+
+- embed
+- rps
+- coinflip
+- caesar_cipher
+
+### Science
+
+- element
+- periodic_table
+- word_to_elements
+
+### Admin
+
+- kick
+- ban
+- unban
+
+### Chess
+
+- random_game
+- possible_moves
+- validate_fen
+
+### Code
+
+- code
+- snippet
