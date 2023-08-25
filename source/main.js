@@ -24,24 +24,25 @@ const rest = new REST({version: '10'}).setToken(TOKEN)
 const commands = []
 const owner_commands = []
 
-async function load_commands(guild) {
+async function load_command(guild) {
 	try {
 		const data = await rest.put(
 			Routes.applicationGuildCommands(CLIENT_ID, guild.id),
 			{ body: commands }
 		)
 
-		console.log(`Loaded ${data.length} : ${guild.id}`)
+		console.log(`[LOADED ${data.length}] ${guild.id}`)
 	} catch (error) {
-		console.error(error)
+		console.error(`[LOAD-ERROR] ${error}`)
 	}
 }
 
 client.on('ready', () => {
-	console.log(`[INFO] Launched as ${client.user.username}`)
+	console.log(`[INFO] Launched as ${client.user.username}\n`)
+
 	client.guilds.cache.forEach(guild => {
 		(async () => {
-			await load_commands(guild)
+			await load_command(guild)
 		})()
 	})
 })
@@ -58,31 +59,28 @@ client.on('messageCreate', (message) => {
 			}
 		}
 
-		if (!command) {
-			return
-		}
+		if (!command) return
 
 		command.execute(client, message)
 	}
 })
 
 client.on('interactionCreate', async (interaction) => {
-	if (!interaction.isChatInputCommand()) {return}
+	if (!interaction.isChatInputCommand()) return
 
 	let command = null
 
-	for (let i = 0; i < commands.length; i++) {
-		if (commands[i]['name'] === interaction.commandName) {
-			command = commands[i]
-		}
-	}
+	for (let i = 0; i < commands.length; i++) { if (commands[i]['name'] === interaction.commandName) {
+		command = commands[i]
+		break
+	}}
 
 	if (!command) {
-		interaction.reply({ content: "# Error\nCommand not found", ephemeral: true })
-		return
-	}
-
-	command.execute(interaction)
+		interaction.reply({
+			content: `# Error\nCommand \`'${interaction.commandName}'\` does not exist`,
+			ephemeral: true
+		})
+	} else command.execute(interaction)
 })
 
 const commandsFoldersPath = path.join(__dirname, 'commands')
@@ -102,7 +100,7 @@ for (const folder of commandFolders) {
 
 			commands.push(command_data)
 		} else {
-			console.warn(`${filePath} is missing required 'data' or 'execute' property`)
+			console.warn(`[WARNING] ${filePath} is missing required 'data' or 'execute' property`)
 		}
 	}
 }
@@ -117,12 +115,12 @@ for (const file of ownercommandFiles) {
 	if ('name' in command && 'execute' in command) {
 		owner_commands.push(command)
 	} else {
-		console.warn(`${filePath} is missing required 'name' or 'execute' property`)
+		console.warn(`[WARNING] ${filePath} is missing required 'name' or 'execute' property`)
 	}
 }
 
 try {
 	client.login(TOKEN)
 } catch (error) {
-	console.error(error)
+	console.error(`[ERROR] ${error}`)
 }
