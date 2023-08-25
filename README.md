@@ -41,6 +41,7 @@ An all in one discord bot made using the discord.js library
 - polynomial_from_outputs
 - evaluate
 - derivative_at
+- integrate_function
 
 ### Time
 
