@@ -78,3 +78,4 @@ An all in one discord bot made using the discord.js library
 
 - code
 - snippet
+- display_file
