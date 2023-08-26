@@ -42,6 +42,7 @@ An all in one discord bot made using the discord.js library
 - evaluate
 - derivative_at
 - integrate_function
+- digitsum
 
 ### Time
 
