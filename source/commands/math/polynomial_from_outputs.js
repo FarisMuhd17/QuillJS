@@ -61,7 +61,7 @@ function findFormula(inputs) {
         }
 
         let commonAdditive = tList[0]
-        let coefficient = commonAdditive / factorial(polynomialDegree)
+        let coefficient = Math.round(commonAdditive / factorial(polynomialDegree) * 1000) / 1000
         let equation = `+ ${coefficient !== 1 ? coefficient + '*' : ''} x ${polynomialDegree !== 1 ? '** ' + polynomialDegree.toString() : ''} `
 
         let newValues = []
@@ -82,7 +82,7 @@ function findFormula(inputs) {
         .replaceAll(' ', '')
         .slice(1)
 
-    let constant = inputs[0] - eval(result.replaceAll('x', 1))
+    let constant = Math.round(inputs[0] - eval(result.replaceAll('x', 1)) * 1000) / 1000
 
     if (parseInt(constant) === 0) {
         return formatEquation(result)
@@ -110,6 +110,16 @@ module.exports = {
             return parseInt(str, 10);
         })
 
-		await interaction.reply('```' + findFormula(outputs) + '```')
+        let final_formula = findFormula(outputs)
+        let formula_ans = '```' + 'js\n' + 'f(x) = ' + final_formula + '```'
+        let formula_tests = '```js\nNOTE: May have slight inaccuracies\n\n'
+
+        for (let i = 1; i <= outputs.length; i++) {
+            formula_tests += `f(${i}) = ${Math.round(eval(final_formula.replaceAll('x', i)) * 10) / 10}\n`
+        }
+
+        formula_tests += '```'
+
+		await interaction.reply(formula_ans + formula_tests)
 	}
 }

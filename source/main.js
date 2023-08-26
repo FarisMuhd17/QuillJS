@@ -58,10 +58,6 @@ client.on('ready', () => {
 client.on('messageCreate', (message) => {
 	if (message.author.bot) return
 
-	if (message.channel.id === '1078963255235588207') {
-		message.delete()
-	}
-
 	if (message.author.id == OWNER_ID && message.content.startsWith('q.')) {
 		let command = null
 
