@@ -3,6 +3,8 @@ const fs = require('fs')
 
 module.exports = {
 	name: 'readfile',
+	description: 'Read a local file',
+	syntax: 'q.readfile path',
 	async execute(client, message)  {
 		if (message.content.length < 2) {
 			await message.channel.send('# Error\nSyntax: readfile path')

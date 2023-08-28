@@ -1,5 +1,7 @@
 module.exports = {
 	name: 'deletemsg',
+	description: 'Delete a message',
+	syntax: 'q.deletemsg message_id',
 	async execute(client, message) {
 		if (message.content.split(' ').length !== 2) {
 			await message.channel.send("# Error\nSyntax: deletemsg message_id")
