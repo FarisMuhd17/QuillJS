@@ -23,6 +23,8 @@ const rest = new REST({ version: '10' }).setToken(TOKEN)
 const commands = []
 const owner_commands = []
 
+console.clear()
+
 async function load_command(guild) {
 	try {
 		const data = await rest.put(
