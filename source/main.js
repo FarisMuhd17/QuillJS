@@ -11,14 +11,12 @@ const TOKEN = process.env.TOKEN
 const CLIENT_ID = process.env.CLIENT_ID
 const CONSOLE_CHANNEL_ID = process.env.CONSOLE_CHANNEL_ID
 
-const client = new Client({
-	intents: [
-		GatewayIntentBits.Guilds,
-		GatewayIntentBits.GuildMessages,
-		GatewayIntentBits.MessageContent,
-		GatewayIntentBits.GuildMembers
-	]
-})
+const client = new Client({ intents: [
+	GatewayIntentBits.Guilds,
+	GatewayIntentBits.GuildMessages,
+	GatewayIntentBits.MessageContent,
+	GatewayIntentBits.GuildMembers
+]})
 
 const rest = new REST({ version: '10' }).setToken(TOKEN)
 
@@ -69,7 +67,6 @@ client.on('messageCreate', (message) => {
 		if (!command) return
 
 		command.execute(client, message)
-		message.delete()
 	}
 })
 

@@ -43,6 +43,7 @@ An all in one discord bot made using the discord.js library
 - derivative_at
 - integrate_function
 - digitsum
+- solve_x
 
 ### Time
 
@@ -50,18 +51,18 @@ An all in one discord bot made using the discord.js library
 - days_for_month
 - day_of_week
 
-### Science
-
-- element
-- periodic_table
-- word_to_elements
-
 ### Misc
 
 - embed
 - rps
 - coinflip
 - caesar_cipher
+
+### Science
+
+- element
+- periodic_table
+- word_to_elements
 
 ### Admin
 
