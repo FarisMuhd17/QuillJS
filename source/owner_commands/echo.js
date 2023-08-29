@@ -1,33 +1,39 @@
 module.exports = {
 	name: 'echo',
-	description: 'Send a message to a channel',
-	syntax: 'q.echo ( user / channel ) content',
+	description: 'Send a message to a user or channel',
+	syntax: 'q.echo ( user / channel ) id content',
 	async execute(client, message) {
 		let command = message.content.split(' ')
 
-		if (command.length < 3) {
-			await message.channel.send('# Error\nMinimum 2 arguments required')
+		if (command.length < 4) {
+			await message.channel.send('# Error\nMinimum 3 arguments required')
 			return
 		}
 
 		let content = ""
 
-		for (let i = 2; i < command.length; i++) {
+		for (let i = 3; i < command.length; i++) {
 			content += `${command[i]} `
 		}
 
-		let user = message.mentions.users.first()
-		let channel = message.mentions.channels.first()
+		let obj_id = command[2]
 
-		if (!user && !channel) {
-			await message.channel.send('# Error\nSyntax: echo (user / channel) content')
-			return
-		}
-
-		if (typeof channel !== 'undefined') {
-			await channel.send(content)
-		} else if (typeof user !== 'undefined') {
-			await user.send(content)
+		if (command[1] === 'user') {
+			client.guilds.cache.forEach(guild => {
+				let u = guild.members.cache.get(obj_id)
+				if (u) {
+					u.send(content)
+					message.channel.send(`**Sent to user:**\n${content}`)
+				}
+			})
+		} else if (command[1] === 'channel') {
+			client.guilds.cache.forEach(guild => {
+				let c = guild.channels.cache.get(obj_id)
+				if (c) {
+					c.send(content)
+					message.channel.send(`**Sent to channel:**\n${content}`)
+				}
+			})
 		}
 	}
 }
