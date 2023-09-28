@@ -20,7 +20,7 @@ module.exports = {
 
 		answer = 1
 
-		for (let i = 1; i < number + 1; i++) {
+		for (let i = 1; i <= number; i++) {
 		    answer *= i
 		}
 

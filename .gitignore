@@ -1,3 +1,4 @@
 node_modules/
 .env
 update_readme.js
+source/allowed_commands.json

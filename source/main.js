@@ -22,14 +22,33 @@ const rest = new REST({ version: '10' }).setToken(TOKEN)
 
 const commands = []
 const owner_commands = []
+const command_types = {}
+const allow_command = require('./allow_command.js')
+let help_command = null
+
+const allowed_commands = require('./allowed_commands.json')
 
 console.clear()
 
 async function load_command(guild) {
 	try {
+		let guild_commands = []
+
+		if (allowed_commands[guild.id]) {
+			commands.forEach(comm => {
+				if (allowed_commands[guild.id][command_types[comm.name]]) {
+					guild_commands.push(comm)
+				}
+			})
+
+			guild_commands.push(help_command)
+		} else {
+			guild_commands = commands
+		}
+
 		const data = await rest.put(
 			Routes.applicationGuildCommands(CLIENT_ID, guild.id),
-			{ body: commands }
+			{ body: guild_commands }
 		)
 
 		console.log(`[LOADED ${data.length}] ${guild.id}`)
@@ -57,6 +76,14 @@ client.on('ready', () => {
 
 client.on('messageCreate', (message) => {
 	if (message.author.bot) return
+
+	if (message.content.startsWith('q.allowed_commands')) allow_command.read_allowed(client, message)
+
+	if (
+		(message.author.id === message.guild.ownerId ||
+		message.author.id === OWNER_ID) &&
+		message.content.startsWith('q.allow_command')
+	) allow_command.set_allowed(client, message)
 
 	if (message.author.id == OWNER_ID && message.content.startsWith('q.')) {
 		let command = null
@@ -103,9 +130,15 @@ for (const folder of commandFolders) {
 
 		if ('data' in command && 'execute' in command) {
 			let command_data = command.data.toJSON()
-			command_data["execute"] = command.execute
 
+			command_data["execute"] = command.execute
 			commands.push(command_data)
+
+			command_types[command_data.name] = folder
+
+			if (command_data.name === 'help') {
+				help_command = command_data
+			}
 		} else {
 			console.warn(`[WARNING] ${filePath} is missing required 'data' or 'execute' property`)
 		}

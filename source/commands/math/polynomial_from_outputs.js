@@ -1,10 +1,12 @@
 const { SlashCommandBuilder } = require('discord.js')
 
 function factorial(n) {
-	if (n === 0 || n === 1) {
-		return 1;
-	}
-	return n * factorial(n - 1);
+	a = 1
+    for (let i = 1; i <= n; i++) {
+        a *= i
+    }
+
+    return a
 }
 
 function allEqualInArray(inputArray) {
@@ -19,19 +21,32 @@ function allEqualInArray(inputArray) {
 function formatEquation(equation) {
     equation = equation
     	.replace(/ /g, '')
-    	.replace(/\+\-/g, '-')
-    	.replace(/\*/g, ' * ')
-    	.replace(/ \*  \* /g, ' ** ')
-    	.replace(/\+/g, ' + ')
-    	.replace(/\//g, ' / ')
-    	.replace(/-/g, ' - ')
+        .replace(/-/g, '+-')
 
-    if (equation[0] === '+') {
-        equation = equation.slice(2)
+    let eqnt = ''
+
+    for (let term of equation.split('+')) {
+        if (term.split('*')[0] !== '0') {
+            eqnt += `+${term}`
+        }
     }
+
+    equation = eqnt.slice(1)
+    equation = equation
+        .replace(/ /g, '')
+        .replace(/\+\-/g, '-')
+        .replace(/\*/g, ' * ')
+        .replace(/ \*  \* /g, ' ** ')
+        .replace(/\+/g, ' + ')
+        .replace(/\//g, ' / ')
+        .replace(/-/g, ' - ')
 
     while (equation[0] === ' ') {
         equation = equation.slice(1)
+    }
+
+    if (equation[0] === '+') {
+        equation = equation.slice(2)
     }
 
     if (equation[0] === '-') {
@@ -66,7 +81,7 @@ function findFormula(inputs) {
 
         let newValues = []
         for (let i = 0; i < inputValues.length - 1; i++) {
-            let eqnt = equation.replaceAll(' ', '').replaceAll('x', i + 1)
+            let eqnt = equation.replaceAll(' ', '').replaceAll('x', `(${i + 1})`)
             eqnt = eqnt.substring(1)
             newValues.push(inputValues[i] - eval(eqnt))
         }
@@ -82,13 +97,17 @@ function findFormula(inputs) {
         .replaceAll(' ', '')
         .slice(1)
 
-    let constant = Math.round(inputs[0] - eval(result.replaceAll('x', 1)) * 1000) / 1000
+    if (result.length === 0) {
+        result = '0 * x'
+    }
+
+    let constant = inputs[0] - eval(result.replaceAll('x', '(1)'))
 
     if (parseInt(constant) === 0) {
         return formatEquation(result)
     }
 
-    return formatEquation(`${result} + ${constant}`)
+    return formatEquation(`${result !== '0 * x' ? result : ''} + ${constant}`)
 }
 
 module.exports = {
@@ -115,11 +134,15 @@ module.exports = {
         let formula_tests = '```js\nNOTE: May have slight inaccuracies\n\n'
 
         for (let i = 1; i <= outputs.length; i++) {
-            formula_tests += `f(${i}) = ${Math.round(eval(final_formula.replaceAll('x', i)) * 10) / 10}\n`
+            formula_tests += `f(${i}) = ${Math.round(eval(final_formula.replaceAll('x', `(${i})`)) * 10) / 10}\n`
         }
 
         formula_tests += '```'
 
-		await interaction.reply(formula_ans + formula_tests)
+        if (formula_ans.length + formula_tests.length > 2000) {
+            await interaction.reply(formula_ans)
+        } else {
+    		await interaction.reply(formula_ans + formula_tests)
+        }
 	}
 }

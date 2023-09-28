@@ -81,11 +81,12 @@ module.exports = {
 			unsolvability_value--
 
 			if (unsolvability_value === 0) {
-				await interaction.reply('This polynomial is not solvable')
+				await interaction.reply('Unable to solve')
 				return
 			}
 		}
 
+		upper_bound = lower_bound
 		unsolvability_value = 10 * equal_to
 
 		while (f(upper_bound) - equal_to < 0) {
@@ -93,7 +94,7 @@ module.exports = {
 			unsolvability_value--
 
 			if (unsolvability_value === 0) {
-				await interaction.reply('This polynomial is not solvable')
+				await interaction.reply('Unable to solve')
 				return
 			}
 		}
@@ -112,11 +113,6 @@ module.exports = {
 
 		func = formatEquation(func)
 
-		let empty_string = ''
-		for (let i = 0; i < func.length; i++) {
-			empty_string += ' '
-		}
-
-		await interaction.reply('```' + `   ${func} = ${equal_to}\n=>${empty_string}x = ${value}` + '```')
+		await interaction.reply('```' + `${func} = ${equal_to}\n=>x = ${value}` + '```')
 	}
 }
