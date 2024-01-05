@@ -113,6 +113,6 @@ module.exports = {
 
 		func = formatEquation(func)
 
-		await interaction.reply('```' + `${func} = ${equal_to}\n=>x = ${value}` + '```')
+		await interaction.reply('```' + `${func} = ${equal_to}\n=> x = ${value}` + '```')
 	}
 }

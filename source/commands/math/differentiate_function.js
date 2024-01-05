@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('discord.js')
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('derivative_at')
+		.setName('differentiate_function')
 		.setDescription('Find approximately what the slope of a function at a value is')
 		.addStringOption((option) => option
 			.setName('function')

@@ -23,14 +23,15 @@ module.exports = {
 		),
 
 	async execute(interaction) {
-		const commandsFolder = path.dirname(__dirname)
-		const commandsSubfolders = fs.readdirSync(commandsFolder)
+		let cmd_type = interaction.options.getString('type')
 
 		let files = ""
+		let commandsFolder = path.dirname(__dirname)
+		let commandsSubfolders = fs.readdirSync(commandsFolder)
 
 		for (folder of commandsSubfolders) {
-			if (folder === interaction.options.getString('type')) {
-				const typeFolder = path.join(commandsFolder, folder)
+			if (folder === cmd_type) {
+				let typeFolder = path.join(commandsFolder, folder)
 				files = fs.readdirSync(typeFolder)
 					.filter(file => file.endsWith('.js')).toString()
 					.replaceAll('.js', '')
@@ -40,7 +41,7 @@ module.exports = {
 		}
 
 		let embed = new EmbedBuilder()
-			.setTitle(interaction.options.getString('type').toUpperCase())
+			.setTitle(cmd_type.toUpperCase())
 			.setDescription(files)
 			.setColor([31, 64, 194])
 			.setAuthor({

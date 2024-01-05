@@ -25,8 +25,8 @@ module.exports = {
 		fetch(file.attachment)
 			.then(r => r.text())
 			.then(file_data => {
-				if (file_data.length > 4096) {
-					interaction.editReply(`File too large: ${file_data.length} characters (max 4096)`)
+				if (file_data.length > 3000) {
+					interaction.editReply(`File too large: ${file_data.length} characters (max 3000)`)
 					return
 				}
 

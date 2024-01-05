@@ -11,7 +11,7 @@ module.exports = {
 		),
 
 	async execute(interaction) {
-		number = interaction.options.getInteger('number')
+		let number = interaction.options.getInteger('number')
 
 		if (number < 0) {
 			await interaction.reply({ content: "# Error\nNumber must be a natural number", ephemeral: true })

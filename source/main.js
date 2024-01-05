@@ -101,7 +101,7 @@ client.on('messageCreate', (message) => {
 
 client.on('interactionCreate', async (interaction) => {
 	if (!interaction.isChatInputCommand()) return
-
+	
 	let command = null
 
 	for (let i = 0; i < commands.length; i++) { if (commands[i]['name'] === interaction.commandName) {
@@ -140,7 +140,7 @@ for (const folder of commandFolders) {
 				help_command = command_data
 			}
 		} else {
-			console.warn(`[WARNING] ${filePath} is missing required 'data' or 'execute' property`)
+			console.warn(`[ERROR] ${filePath} is missing required 'data' or 'execute' property`)
 		}
 	}
 }
@@ -155,7 +155,7 @@ for (const file of ownercommandFiles) {
 	if ('name' in command && 'execute' in command) {
 		owner_commands.push(command)
 	} else {
-		console.warn(`[WARNING] ${filePath} is missing required 'name' or 'execute' property`)
+		console.warn(`[ERROR] ${filePath} is missing required 'name' or 'execute' property`)
 	}
 }
 
