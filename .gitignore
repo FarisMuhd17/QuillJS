@@ -1,3 +1,4 @@
 node_modules/
 .env
 source/allowed_commands.json
+source/data/saved_formulas.json

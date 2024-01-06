@@ -231,6 +231,7 @@ The commands that come under the math type are the following:
 31. summation
 32. twonum
 33. use_formula
+34. saved_formulas
 
 #### 1. Angle radian conversion
 
@@ -530,6 +531,23 @@ This command allows you to type out a formula, and then plug in the values you w
 **Syntax**
 ```
 /use_formula [formula] [values]
+```
+
+#### 34. Saved formulas
+
+This is a command that allows you to save formulas, use them, and delete them. This function can do multiple things at once depending on the `method` argument. The formulas are saved in a json file holding your user id, thus the formulas are saved indirectly in your discord account. All the inputted values are case sensitive.
+
+If the `method` argument is `List`, then the program would list out all the formulas you have saved to your account along with the formula they hold. When the method is to list out all the formulas, the `name` and `inputs` arguments can simply be left with anything; the input given to those two arguments wouldn't change the resulting output.
+
+If the `method` argument is `Use`, the the program will evaluate the formula with given inputs. The `name` argument can hold the name of the formula, while the `inputs` argument can hold all the inputs seperated by commas (For example: a = 2, b = c).
+
+If the `method` argument is `Create`, then the program would create a new formula onto your account. The `name` argument would be what is used to run the formula, and the actual formula can be passed under the `inputs` argument.
+
+If the `method` argument is `Delete`, then the program would delete the formula from your account. The `name` argument can hold the name of the formula you want to delete, and the `inputs` argument can be left empty.
+
+**Syntax**
+```
+/saved_formulas [method: List | Use | Create | Delete] [name] [inputs]
 ```
 
 ### 5. Misc
