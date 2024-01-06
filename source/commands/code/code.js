@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js')
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -31,13 +31,22 @@ module.exports = {
 		let code = interaction.options.getString('code')
 		let seperator = interaction.options.getString('seperator')
 
-		if (!filename.includes('.') || filename.split('.').length !== 2) {
+		if (!filename.includes('.')) {
 			await interaction.reply('# Error\nFilename is not valid')
 			return
 		}
 
 		code = code.replaceAll(seperator, "\n")
 
-		await interaction.reply('```' + `${filename.split('.')[1]}\n` + code + '```')
+		await interaction.reply({ embeds: [new EmbedBuilder()
+			.setTitle(filename)
+			.setDescription(description)
+			.setAuthor({
+				name: interaction.user.username,
+				iconURL: interaction.user.displayAvatarURL()
+			})
+			.setColor([31, 64, 194])
+			.addFields({ name: 'Code', value: '```' + `${filename.split('.')[-1]}\n` + code + '```', inline: true })
+		]})
 	}
 }

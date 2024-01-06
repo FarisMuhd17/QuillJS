@@ -20,7 +20,7 @@ module.exports = {
 
         let numlist = numbers.split(",")
         numlist = numlist.map(str => {
-            return parseInt(str, 10);
+            return parseFloat(str, 10);
         })
 
         await interaction.reply((numlist.reduce(add, 0) / numlist.length).toString())

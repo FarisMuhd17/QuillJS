@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('discord.js')
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('sum_till')
-		.setDescription('Find the sum of all natural numbers from 0')
+		.setDescription('Find the sum of all natural numbers from 0 to n')
 		.addIntegerOption((option) => option
 			.setName('number')
 			.setDescription('The last natural number that is added to the sequence')

@@ -38,11 +38,17 @@ module.exports = {
 			.setName('equal_to')
 			.setDescription('What the result is equal to')
 			.setRequired(true)
+		)
+		.addNumberOption((option) => option
+			.setName('x0')
+			.setDescription('An approximate solution')
+			.setRequired(true)
 		),
 
 	async execute(interaction) {
 		let func = interaction.options.getString('polynomial')
 		let equal_to = interaction.options.getNumber('equal_to')
+		let x0 = interaction.options.getNumber('x0')
 
 		func = func.replace(/ /g, "")
 		func = func.replace(/pi/g, "3.141592653589793")
@@ -67,52 +73,25 @@ module.exports = {
 			}
 		}
 
-		let unsolvability_value = 10 * equal_to
-
 		function f(n) {
-			return eval(func.replaceAll('x', `(${n})`))
+			return eval(func.replaceAll('x', `(${n})`) + `-${equal_to}`)
 		}
 
-		let lower_bound = 0
-		let upper_bound = 0
-
-		while (f(lower_bound) - equal_to > 0) {
-			lower_bound--
-			unsolvability_value--
-
-			if (unsolvability_value === 0) {
-				await interaction.reply('Unable to solve')
-				return
-			}
+		const dx = 10 ** -5
+		function f_prime(n) {
+			return (f(n + dx) - f(n)) / dx
 		}
 
-		upper_bound = lower_bound
-		unsolvability_value = 10 * equal_to
+		let x_previous = x0
+		let x_current = 0
 
-		while (f(upper_bound) - equal_to < 0) {
-			upper_bound++
-			unsolvability_value--
-
-			if (unsolvability_value === 0) {
-				await interaction.reply('Unable to solve')
-				return
-			}
-		}
-
-		let value = 0
-
-		for (let i = 0; i < 1000; i++) {
-			value = 0.5 * (lower_bound + upper_bound)
-
-			if (f(value) - equal_to > 0) {
-				upper_bound = value
-			} else if (f(value) - equal_to < 0) {
-				lower_bound = value
-			} else break
+		for (let i = 1; i < 100; i++) {
+			x_current = x_previous - f(x_previous) / f_prime(x_previous)
+			x_previous = x_current
 		}
 
 		func = formatEquation(func)
 
-		await interaction.reply('```' + `${func} = ${equal_to}\n=> x = ${value}` + '```')
+		await interaction.reply('```' + `${func} = ${equal_to}\n=> x = ${x_current}` + '```')
 	}
 }

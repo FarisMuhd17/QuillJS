@@ -5,25 +5,25 @@ module.exports = {
 		.setName('randint')
 		.setDescription('Return a random number between two numbers')
 		.addIntegerOption((option) => option
-			.setName('number1')
+			.setName('lower_bound')
 			.setDescription('The least value of the range of numbers')
 			.setRequired(true)
 		)
 		.addIntegerOption((option) => option
-			.setName('number2')
+			.setName('upper_bound')
 			.setDescription('The highest value of the range of numbers')
 			.setRequired(true)
 		),
 
 	async execute(interaction) {
-		let number1 = interaction.options.getInteger('number1')
-		let number2 = interaction.options.getInteger('number2')
+		let lower_bound = interaction.options.getInteger('lower_bound')
+		let upper_bound = interaction.options.getInteger('upper_bound')
 
-		if (number1 > number2) {
-			await interaction.reply({ content: "# Error\n`number1` cannot be greater than `number2`", ephemeral: true })
+		if (lower_bound > upper_bound) {
+			await interaction.reply({ content: "# Error\n`lower_bound` cannot be greater than `upper_bound`", ephemeral: true })
 			return
 		}
 
-		await interaction.reply((Math.floor(Math.random() * number1) + number2).toString())
+		await interaction.reply((Math.floor(Math.random() * lower_bound) + upper_bound).toString())
 	}
 }

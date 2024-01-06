@@ -37,8 +37,6 @@ module.exports = {
 		let footer = interaction.options.getString('footer') ?? null
 		let url = interaction.options.getString('url') ?? null
 
-		let now = new Date()
-
 		let embed = new EmbedBuilder()
 			.setTitle(title)
 			.setDescription(desc)

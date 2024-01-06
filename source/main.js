@@ -28,8 +28,6 @@ let help_command = null
 
 const allowed_commands = require('./allowed_commands.json')
 
-console.clear()
-
 async function load_command(guild) {
 	try {
 		let guild_commands = []

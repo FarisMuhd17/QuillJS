@@ -32,7 +32,7 @@ module.exports = {
 			(error, data) => {
 				if (error) {
 					message.channel.send(`An error occured: \`${error}\``)
-				} else message.channel.send(`Set ${split_message[1]} to ${split_message[2]}`)
+				} else message.channel.send(`Succesfully set **${split_message[1]}** to **${split_message[2]}**`)
 			}
 		)
 	},
