@@ -1,6 +1,6 @@
-# <span style="color: rgb(31, 64, 194)">Quill</span>.js
+# Quill.js
 
-An all in one discord bot made using the discord.js library. The bot works using slash commands, and as for non slash commands, the prefix is `q.`.
+An all in one discord bot made using the discord.js library. The bot works using slash commands, and as for non slash commands, the prefix is `q.`
 
 ## Features
 
@@ -52,7 +52,6 @@ q.deletemsg [message_id] # Deletes a message
 q.echo [user | channel] [object_id] [content] # Sends a message
 q.guild_ids # Collects the server IDs of all the servers the bot is in
 q. guild_names # Collects the names of the servers the bot is in
-q.latency # Retrives the latency of the bot
 q.readfile [path] # Outputs the contents of a path
 q.readfolder [path] # Outputs the files and folders
 q.status [online | dnd | idle | invisible] # Change the status of the bot
@@ -101,7 +100,7 @@ The commands given as admin commands are the following:
 2. ban
 3. unban
 
-#### 1. Kick
+#### Kick
 
 This command simply removes a member from the server, it does not permanently remove them.
 
@@ -110,7 +109,7 @@ This command simply removes a member from the server, it does not permanently re
 /kick [user]
 ```
 
-#### 2. Ban
+#### Ban
 
 As the name suggests, this command simply bans a user from the server. Once run, the user will be immediately banned from the server.
 
@@ -119,7 +118,7 @@ As the name suggests, this command simply bans a user from the server. Once run,
 /ban [user]
 ```
 
-#### 3. Unban
+#### Unban
 
 This command removes the ban on a user, basically re-allowing them to rejoin the server after having been banned. Note that this command needs you to input the user's id instead, which can be acquired from the server settings.
 
@@ -138,7 +137,7 @@ The commands given as chess commands are the following:
 2. random_game
 3. validate_fen
 
-#### 1. Possible moves
+#### Possible moves
 
 This command returns all the possible moves in a given position
 
@@ -147,7 +146,7 @@ This command returns all the possible moves in a given position
 /possible_moves [fen]
 ```
 
-#### 2. Random game
+#### Random game
 
 This commands generates a random game, full of just random moves, till the game is over
 
@@ -156,7 +155,7 @@ This commands generates a random game, full of just random moves, till the game 
 /random_game
 ```
 
-#### 3. Validate FEN
+#### Validate FEN
 
 This commands checks whether a given fen is possible or not
 
@@ -174,7 +173,7 @@ The commands that come under the code type are the following:
 1. code
 2. display_file
 
-#### 1. Code
+#### Code
 
 This command allows you to display a snippet of code in a neat embed. Upon running the command, a prompt will come up asking for the file type and the code. The file type is required for the code highlighting. The code will then be displayed in clean embed in discord constisting of the author of the code at the top, and the code itself.
 
@@ -183,7 +182,7 @@ This command allows you to display a snippet of code in a neat embed. Upon runni
 /code
 ```
 
-#### 2. Display file
+#### Display file
 
 This command allows you to display a local file from your device in a neat embed.
 
@@ -209,31 +208,25 @@ The commands that come under the math type are the following:
 9. tan
 10. differentiate_function
 11. integrate_function
-12. digitsum
-13. evaluate
-14. exponent
-15. factorial
-16. factors
-17. fibonacci
-18. herons_formula
-19. hyperfactorial
-20. is_prime
-21. natural_log
-22. pascals_triangle
-23. percentage
-24. polynomial_from_outputs
-25. quadratic_equation
-26. reciprocal
-27. remainder
-28. solve_x
-29. sum_ap
-30. sum_till
-31. summation
-32. twonum
-33. use_formula
-34. saved_formulas
+12. evaluate
+13. factorial
+14. factors
+15. fibonacci
+16. herons_formula
+17. hyperfactorial
+18. is_prime
+19. natural_log
+20. pascals_triangle
+21. polynomial_from_outputs
+22. quadratic_equation
+23. solve_x
+24. sum_ap
+25. summation
+26. twonum
+27. use_formula
+28. saved_formulas
 
-#### 1. Angle radian conversion
+#### Angle radian conversion
 
 This function does the conversion from degrees to radians or vice versa.
 
@@ -242,7 +235,7 @@ This function does the conversion from degrees to radians or vice versa.
 /angle_radian_conversion [value] [convert_to: Radians | Angles]
 ```
 
-#### 2. Antifactorial
+#### Antifactorial
 
 The inverse of the factorial function. Finds the number whose factorial is the given number.
 
@@ -251,7 +244,7 @@ The inverse of the factorial function. Finds the number whose factorial is the g
 /antifactorial [number]
 ```
 
-#### 3. Average
+#### Average
 
 Computes the average from a set of inputs, i.e. numbers seperated by commas.
 
@@ -260,7 +253,7 @@ Computes the average from a set of inputs, i.e. numbers seperated by commas.
 /average [numbers]
 ```
 
-#### 4. Change base
+#### Change base
 
 Changes the base of the given number from base-10 to some other base.
 
@@ -268,7 +261,7 @@ Changes the base of the given number from base-10 to some other base.
 /change_base [number: in base-10] [new_base]
 ```
 
-#### 5. Compound intrest amount
+#### Compound intrest amount
 
 Computes the amount of compound intrest acquired over some time. It can compute for yearly, half yearly, or quarter yearly.
 
@@ -277,7 +270,7 @@ Computes the amount of compound intrest acquired over some time. It can compute 
 /ci_amount [type: Yearly | Half yearly | Quarter yearly] [principly] [rate] [time]
 ```
 
-#### 6. Constant
+#### Constant
 
 Gives the value of a given constant in math
 
@@ -286,7 +279,7 @@ Gives the value of a given constant in math
 /constant [name: π | e | 𝜏 | γ | φ]
 ```
 
-#### 7. Cos
+#### Cos
 
 Computes the cosine of an angle in radians
 
@@ -295,7 +288,7 @@ Computes the cosine of an angle in radians
 /cos [radians]
 ```
 
-#### 8. Sin
+#### Sin
 
 Computes the sin of an angle in radians
 
@@ -304,7 +297,7 @@ Computes the sin of an angle in radians
 /sin [radians]
 ```
 
-#### 9. Tan
+#### Tan
 
 Computes the tan of an angle in radians
 
@@ -313,7 +306,7 @@ Computes the tan of an angle in radians
 /tan [radians]
 ```
 
-#### 10. Differentiate function
+#### Differentiate function
 
 Finds the value of the derivative of a function at some value
 
@@ -322,7 +315,7 @@ Finds the value of the derivative of a function at some value
 /differentiate_function [function] [at]
 ```
 
-#### 11. Integrate function
+#### Integrate function
 
 Finds the value of the definite integral of a function between two bounds
 
@@ -331,16 +324,7 @@ Finds the value of the definite integral of a function between two bounds
 /integrate_function [function] [from] [to]
 ```
 
-#### 12. Digit sum
-
-Finds the digit sum of a number
-
-**Syntax**
-```
-/digitsum [number]
-```
-
-#### 13. Evaluate
+#### Evaluate
 
 Calculate the value of a given math expression. Note that the expression must be a valid expression, using only math numbers and symbols.
 
@@ -349,16 +333,7 @@ Calculate the value of a given math expression. Note that the expression must be
 /evaluate [expression]
 ```
 
-#### 14. Exponent
-
-Exponentiate a value
-
-**Syntax**
-```
-/exponent [base] [exponent]
-```
-
-#### 15. Factorial
+#### Factorial
 
 Compute the factorial of a number. The number must a positive non-zero integer to work.
 
@@ -367,7 +342,7 @@ Compute the factorial of a number. The number must a positive non-zero integer t
 /factorial [number]
 ```
 
-#### 16. Factors
+#### Factors
 
 Find the factors of a number, i.e. all the numbers that can be used to multiply with other numbers to get the original number back.
 
@@ -376,7 +351,7 @@ Find the factors of a number, i.e. all the numbers that can be used to multiply 
 /factors [number]
 ```
 
-#### 17. Fibonacci
+#### Fibonacci
 
 Find the nth number in the Fibonacci sequence, i.e. a sequence of numbers such that the next number is the sum of the previous two.
 
@@ -385,7 +360,7 @@ Find the nth number in the Fibonacci sequence, i.e. a sequence of numbers such t
 /fibonacci [term]
 ```
 
-#### 18. Heron's formula
+#### Heron's formula
 
 A formula to calculate the area of a scalene triangle given the length of all its sides.
 
@@ -394,7 +369,7 @@ A formula to calculate the area of a scalene triangle given the length of all it
 /herons_formula [side_1] [side_2] [side_3]
 ```
 
-#### 19. Hyperfactorial
+#### Hyperfactorial
 
 The hyperfactorial of a number is the product of all the natural numbers from 1 to that number to the power of the current number
 
@@ -403,7 +378,7 @@ The hyperfactorial of a number is the product of all the natural numbers from 1 
 /hyperfactorial [number]
 ```
 
-#### 20. Is prime
+#### Is prime
 
 Checks whether a given number is prime or not, i.e. a number divisible by only 1 and itself.
 
@@ -412,7 +387,7 @@ Checks whether a given number is prime or not, i.e. a number divisible by only 1
 /is_prime [number]
 ```
 
-#### 21. Natural log
+#### Natural log
 
 Find the natural log of a number
 
@@ -421,7 +396,7 @@ Find the natural log of a number
 /natural_log [number]
 ```
 
-#### 22. Pascal's triangle
+#### Pascal's triangle
 
 Finds the value of pascal's triangle at some row and column
 
@@ -430,16 +405,7 @@ Finds the value of pascal's triangle at some row and column
 /pascals_trangle [row] [column]
 ```
 
-#### 23. Percentage
-
-Convert a fraction to percentage
-
-**Syntax**
-```
-/percentage [numerator] [denominator]
-```
-
-#### 24. Polynomial from outputs
+#### Polynomial from outputs
 
 Finds the polynomial satisfying the given outputs, if the outputs corrospond to x-values from 1 to some value
 
@@ -448,7 +414,7 @@ Finds the polynomial satisfying the given outputs, if the outputs corrospond to 
 /polynomial_from_outputs [outputs: Seperated by commas]
 ```
 
-#### 25. Quadratic equation
+#### Quadratic equation
 
 Compute the roots of a quadratic polynomial
 
@@ -457,25 +423,7 @@ Compute the roots of a quadratic polynomial
 /quadratic_equation [a: The coefficient of x^2] [b: The coefficient of x] [c: The constant]
 ```
 
-#### 26. Reciprocal
-
-Find the reciprocal of a number
-
-**Syntax**
-```
-/reciprocal [number]
-```
-
-#### 27. Remainder
-
-Find the remainder when two numbers are divided
-
-**Syntax**
-```
-/remainder [numerator] [denominator]
-```
-
-#### 28. Solve X
+#### Solve X
 
 Find the roots of a function using Newton's method, given the initial value
 
@@ -484,7 +432,7 @@ Find the roots of a function using Newton's method, given the initial value
 /solve_x [function] [equal_to] [x0]
 ```
 
-#### 29. Sum arithmetic progression
+#### Sum arithmetic progression
 
 Find the sum of an arithmetic progression
 
@@ -493,16 +441,7 @@ Find the sum of an arithmetic progression
 /sum_ap [first_term] [number_of_terms] [common_difference]
 ```
 
-#### 30. Sum till
-
-Finds the sum of all natural numbers till the given number
-
-**Syntax**
-```
-/sum_till [number]
-```
-
-#### 31. Summation
+#### Summation
 
 Calculates the summation between two bounds of a function
 
@@ -511,7 +450,7 @@ Calculates the summation between two bounds of a function
 /summation [start] [stop] [function]
 ```
 
-#### 32. Two numbers
+#### Two numbers
 
 This command finds two numbers that satisfy a condition given an initial two numbers. The possible conditions are the following:
 
@@ -524,7 +463,7 @@ This command finds two numbers that satisfy a condition given an initial two num
 /twonum [category: sum_difference | product_quotient | sum_product] [number1] [number2]
 ```
 
-#### 33. Use formula
+#### Use formula
 
 This command allows you to type out a formula, and then plug in the values you want, and then the program evaluates the result. All the values in the `values` variable must be seperated using commas, and the assigned variable must be followed by an equals with the value you want to give it.
 
@@ -533,7 +472,7 @@ This command allows you to type out a formula, and then plug in the values you w
 /use_formula [formula] [values]
 ```
 
-#### 34. Saved formulas
+#### Saved formulas
 
 This is a command that allows you to save formulas, use them, and delete them. This function can do multiple things at once depending on the `method` argument. The formulas are saved in a json file holding your user id, thus the formulas are saved indirectly in your discord account. All the inputted values are case sensitive.
 
@@ -561,7 +500,7 @@ The commands that come under the misc type are the following:
 3. embed
 4. rps
 
-#### 1. Caeser cipher
+#### Caeser cipher
 
 This function applies the Ceaser cipher onto a string of text by some shift
 
@@ -570,7 +509,7 @@ This function applies the Ceaser cipher onto a string of text by some shift
 /caeser_cipher [text] [shift]
 ```
 
-#### 2. Coinflip
+#### Coinflip
 
 Simply does a coinflip
 
@@ -579,7 +518,7 @@ Simply does a coinflip
 /coinflip
 ```
 
-#### 3. Embed
+#### Embed
 
 Create a neat embed with a title, description, image, thumbnail, a footer, and a URL. The URL us present at the text that holds the name of the author present in the embed. None of the arguments to this command is required.
 
@@ -588,7 +527,7 @@ Create a neat embed with a title, description, image, thumbnail, a footer, and a
 /embed [title] [description] [image] [thumbnail] [footer] [url]
 ```
 
-#### 4. Rock, Paper, Scissors
+#### Rock, Paper, Scissors
 
 Play rock, paper, scissors against a random choice.
 
@@ -606,7 +545,7 @@ The commands that come under the random type are the following:
 1. randint
 2. randoption
 
-#### 1. Random integer
+#### Random integer
 
 Chooses a random number between two given values
 
@@ -615,7 +554,7 @@ Chooses a random number between two given values
 /randint [lower_bound] [upper_bound]
 ```
 
-#### 2. Random option
+#### Random option
 
 Chooses a random option from a set of objects
 
@@ -634,7 +573,7 @@ The comands that come under the science type are the following:
 2. periodic_table
 3. word_to_elements
 
-#### 1. Element
+#### Element
 
 This function allows you to give one information of an element from the periodic table, such as the name, symbol, or atomic number, and it can return the other two values. The `type` argument refers to the value you are inputting.
 
@@ -643,7 +582,7 @@ This function allows you to give one information of an element from the periodic
 /element [type: Name | Symbol | Atomic number] [input: Must corrospond to type]
 ```
 
-#### 2. Periodic table
+#### Periodic table
 
 This command returns the image of the periodic table
 
@@ -652,7 +591,7 @@ This command returns the image of the periodic table
 /periodic_table
 ```
 
-#### 3. word_to_elements
+#### Word to elements
 
 This command converts a word into a set of elements, whose symbols corrospond to that word when placed together. Note that if there are multiply solutions, this program with only give the simplest to find.
 
@@ -671,7 +610,7 @@ The commands that come under the time type are the following:
 2. days_for_month
 3. utc
 
-#### 1. Day of the week
+#### Day of the week
 
 This command returns that day of the week a specific date is. If the date is invalid, then the program will be unable to find the day it was.
 
@@ -680,7 +619,7 @@ This command returns that day of the week a specific date is. If the date is inv
 /day_of_week [day] [month] [year]
 ```
 
-#### 2. Days for the month
+#### Days for the month
 
 This commands returns the number of days present in a given month.
 
@@ -689,7 +628,7 @@ This commands returns the number of days present in a given month.
 /days_for_month [month]
 ```
 
-#### 3. UTC (Universal standard time)
+#### UTC (Universal standard time)
 
 This command returns the current time it is, but in the universal standard time (utc).
 

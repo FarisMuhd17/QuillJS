@@ -5,7 +5,9 @@ module.exports = {
 	name: 'help',
 	description: 'List of commands or information on specific command',
 	syntax: 'q.help ( optional: command_name )',
-	async execute(client, message) {
+	async execute(args) {
+		let [client, message] = args
+
 		const owner_command_folder_contents = fs.readdirSync(__dirname)
 			.filter(file => file.endsWith('.js'))
 

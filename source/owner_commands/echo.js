@@ -2,7 +2,8 @@ module.exports = {
 	name: 'echo',
 	description: 'Send a message to a user or channel',
 	syntax: 'q.echo ( user / channel ) id content',
-	async execute(client, message) {
+	async execute(args) {
+		let [client, message] = args
 		let command = message.content.split(' ')
 
 		if (command.length < 4) {

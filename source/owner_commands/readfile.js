@@ -5,7 +5,9 @@ module.exports = {
 	name: 'readfile',
 	description: 'Read a local file',
 	syntax: 'q.readfile path',
-	async execute(client, message)  {
+	async execute(args)  {
+		let [client, message] = args
+
 		if (message.content.length < 2) {
 			await message.channel.send('# Error\nSyntax: readfile path')
 			return

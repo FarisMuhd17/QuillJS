@@ -6,7 +6,9 @@ module.exports = {
 	name: 'readfolder',
 	description: 'Read a local folder',
 	syntax: 'q.readfolder path',
-	async execute(client, message)  {
+	async execute(args)  {
+		let [client, message] = args
+
 		if (message.content.length < 2) {
 			await message.channel.send('# Error\nSyntax: readfolder path')
 			return

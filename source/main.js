@@ -65,11 +65,7 @@ client.on('ready', () => {
 	})
 
 	let now = new Date()
-	client.channels.cache.get(CONSOLE_CHANNEL_ID).send({ embeds: [ new EmbedBuilder()
-		.setTitle('Online')
-		.setDescription(`${now.getUTCDate()}/${now.getUTCMonth()}/${now.getUTCFullYear()} - ${now.getUTCHours()}:${now.getUTCMinutes()}:${now.getUTCSeconds()}`)
-		.setColor([31, 64, 194])
-	]})
+	client.channels.cache.get(CONSOLE_CHANNEL_ID).send(`**Online:** ${now.getUTCDate()}/${now.getUTCMonth()}/${now.getUTCFullYear()}-${now.getUTCHours()}:${now.getUTCMinutes()}:${now.getUTCSeconds()}`)
 })
 
 client.on('messageCreate', (message) => {
@@ -93,7 +89,7 @@ client.on('messageCreate', (message) => {
 
 		if (!command) return
 
-		command.execute(client, message)
+		command.execute([client, message])
 	}
 })
 
