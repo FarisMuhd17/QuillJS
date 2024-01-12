@@ -9,15 +9,17 @@
   "main": "./source/main.js",
   "devDependencies": {
     "chess.js": "^1.0.0-beta.6",
-    "dotenv": "^16.3.1",
-    "nodemon": "^1.14.9"
+    "dotenv": "^16.3.1"
   },
   "scripts": {
-    "start": "node ./source/main.js",
-    "start-dev": "nodemon ./source/main.js"
+    "start": "node ./source/main.js"
   },
   "keywords": [],
-  "author": "faris.js",
+  "author": "Faris",
   "license": "MIT",
-  "description": "Personal AIO discord bot"
+  "description": "Personal AIO discord bot",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FarisMuhd17/QuillJS.git"
+  }
 }

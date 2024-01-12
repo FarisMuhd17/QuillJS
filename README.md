@@ -1,4 +1,4 @@
-# Quill.js
+# <span style="color: rgb(31, 64, 194)">Quill</span>.js
 
 An all in one discord bot made using the discord.js library. The bot works using slash commands, and as for non slash commands, the prefix is `q.`.
 
@@ -176,11 +176,11 @@ The commands that come under the code type are the following:
 
 #### 1. Code
 
-This command allows you to display a snippet of code in a neat embed, displaying the filename in the title, a description of the program, the code itself, and a seperator that determines when the next lines are as your input would have to be in one line due to the limitations of discord.
+This command allows you to display a snippet of code in a neat embed. Upon running the command, a prompt will come up asking for the file type and the code. The file type is required for the code highlighting. The code will then be displayed in clean embed in discord constisting of the author of the code at the top, and the code itself.
 
 **Syntax**
 ```
-/code [filename: name.extension] [description] [code] [seperator]
+/code
 ```
 
 #### 2. Display file

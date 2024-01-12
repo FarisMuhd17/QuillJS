@@ -98,21 +98,27 @@ client.on('messageCreate', (message) => {
 })
 
 client.on('interactionCreate', async (interaction) => {
-	if (!interaction.isChatInputCommand()) return
-	
-	let command = null
+	if (interaction.isChatInputCommand()) {
+		let command = commands.find((elem) => elem['name'] === interaction.commandName)
 
-	for (let i = 0; i < commands.length; i++) { if (commands[i]['name'] === interaction.commandName) {
-		command = commands[i]
-		break
-	}}
+		if (!command) {
+			interaction.reply({
+				content: `# Error\nCommand \`'${interaction.commandName}'\` does not exist`,
+				ephemeral: true
+			})
+		} else command.execute(interaction)
+	}
 
-	if (!command) {
-		interaction.reply({
-			content: `# Error\nCommand \`'${interaction.commandName}'\` does not exist`,
-			ephemeral: true
-		})
-	} else command.execute(interaction)
+	else if (interaction.isModalSubmit()) {
+		let command = commands.find((elem) => elem['name'] === interaction.customId.split('-')[0])
+		
+		if (!command) {
+			interaction.reply({
+				content: `# Error\nCommand \`'${interaction.commandName}'\` does not exist`,
+				ephemeral: true
+			})
+		} else command.respondModal(interaction)
+	}
 })
 
 const commandsFoldersPath = path.join(__dirname, 'commands')
@@ -130,6 +136,8 @@ for (const folder of commandFolders) {
 			let command_data = command.data.toJSON()
 
 			command_data["execute"] = command.execute
+			command_data["respondModal"] = command.respondModal
+
 			commands.push(command_data)
 
 			command_types[command_data.name] = folder
