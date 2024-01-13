@@ -215,16 +215,17 @@ The commands that come under the math type are the following:
 16. [herons_formula](./source/commands/math/herons_formula.js)
 17. [hyperfactorial](./source/commands/math/hyperfactorial.js)
 18. [is_prime](./source/commands/math/is_prime.js)
-19. [natural_log](./source/commands/math/natural_log.js)
-20. [pascals_triangle](./source/commands/math/pascals_triangle.js)
-21. [polynomial_from_outputs](./source/commands/math/polynomial_from_outputs.js)
-22. [quadratic_equation](./source/commands/math/quadratic_equation.js)
-23. [solve_x](./source/commands/math/solve_x.js)
-24. [sum_ap](./source/commands/math/sum_ap.js)
-25. [summation](./source/commands/math/summation.js)
-26. [twonum](./source/commands/math/twonum.js)
-27. [use_formula](./source/commands/math/use_formula.js)
-28. [saved_formulas](./source/commands/math/saved_formulas.js)
+19. [nth_prime](./source/commands/math/nth_prime.js)
+20. [natural_log](./source/commands/math/natural_log.js)
+21. [pascals_triangle](./source/commands/math/pascals_triangle.js)
+22. [polynomial_from_outputs](./source/commands/math/polynomial_from_outputs.js)
+23. [quadratic_equation](./source/commands/math/quadratic_equation.js)
+24. [solve_x](./source/commands/math/solve_x.js)
+25. [sum_ap](./source/commands/math/sum_ap.js)
+26. [summation](./source/commands/math/summation.js)
+27. [twonum](./source/commands/math/twonum.js)
+28. [use_formula](./source/commands/math/use_formula.js)
+29. [saved_formulas](./source/commands/math/saved_formulas.js)
 
 #### Angle radian conversion
 
@@ -385,6 +386,15 @@ Checks whether a given number is [prime](https://en.wikipedia.org/wiki/Prime_num
 **Syntax**
 ```
 /is_prime [number]
+```
+
+#### Nth prime
+
+This [command](./source/commands/math/nth_prime.js) finds the nth [prime number](https://en.wikipedia.org/wiki/Prime_number). It uses a large [json file](./source/data/primes.json), which was created in python using a sufficiently fast algorithm, to get the first million prime numbers.
+
+**Syntax**
+```
+/nth_prime [index]
 ```
 
 #### Natural log
