@@ -94,14 +94,7 @@ module.exports = {
 				for (let term of inputs.split(',')) {
 					let term_parts = term.split('=')
 
-					if (![
-						'0', '1', '2', 
-						'3', '4', '5', 
-						'6', '7', '8', 
-						'9', '+', '-', 
-						'*', '/', '%', 
-						'(', ')', '.'
-					].includes(term_parts[1])) {
+					if (isNaN(parseFloat(term_parts[1]))) {
 						await interaction.reply('All inputs to variables must be a number')
 						return
 					}
@@ -118,6 +111,9 @@ module.exports = {
 
 				let out = ''
 				for (let line of script.split('\n')) {
+					let nextLineTrue = !line.endsWith('CONT')
+					line = line.replaceAll('CONT', '')
+
 					if (line.startsWith('text')) {
 						let l = line.replace('text:', '')
 						for (let variable of Object.keys(formulaInputs)) {
@@ -126,7 +122,7 @@ module.exports = {
 							}
 						}
 
-						out += l + '\n'
+						out += nextLineTrue ? l + '\n' : l
 
 					} else if (line.startsWith('eqnt')) {
 						line = line.replaceAll(' ', '')
@@ -163,7 +159,7 @@ module.exports = {
 							}
 						}
 
-						out += eval(l).toString() + '\n'
+						out += nextLineTrue ? eval(l).toString() + '\n' : eval(l).toString()
 
 					} else {
 						await interaction.reply('Invalid script')
