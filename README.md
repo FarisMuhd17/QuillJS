@@ -173,7 +173,7 @@ The commands that come under the code type are the following:
 1. [code](./source/commands/code/code.js)
 2. [display_file](./source/commands/code/display_file.js)
 
-#### Code
+#### Display code
 
 This [command](./source/commands/code/code.js) allows you to display a snippet of code in a neat embed. Upon running the command, a prompt will come up asking for the file type and the code. The file type is required for the code highlighting. The code will then be displayed in clean embed in discord constisting of the author of the code at the top, and the code itself.
 
@@ -484,20 +484,22 @@ This [command](./source/commands/math/use_formula.js) allows you to type out a [
 
 #### Saved formulas
 
-This is a [command](./source/commands/math/saved_formulas.js) that allows you to save formulas, use them, and delete them. This function can do multiple things at once depending on the `method` argument. The formulas are saved in a [json file](./source/data) holding your user id, thus the formulas are saved indirectly in your discord account. All the inputted values are case sensitive.
-
-If the `method` argument is `List`, then the program would list out all the formulas you have saved to your account along with the formula they hold. When the method is to list out all the formulas, the `name` and `inputs` arguments can simply be left with anything; the input given to those two arguments wouldn't change the resulting output.
-
-If the `method` argument is `Use`, the the program will evaluate the formula with given inputs. The `name` argument can hold the name of the formula, while the `inputs` argument can hold all the inputs seperated by commas (For example: a = 2, b = c).
-
-If the `method` argument is `Create`, then the program would create a new formula onto your account. The `name` argument would be what is used to run the formula, and the actual formula can be passed under the `inputs` argument.
-
-If the `method` argument is `Delete`, then the program would delete the formula from your account. The `name` argument can hold the name of the formula you want to delete, and the `inputs` argument can be left empty.
+This is a [command](./source/commands/math/saved_formulas.js) that allows you to save formulas, use them, and delete them. The formulas are saved in a [json file](./source/data) holding your user id, thus the formulas are saved indirectly in your discord account. This command has sub commands (commands coming under it), the following are the syntax of each:
 
 **Syntax**
 ```
-/saved_formulas [method: List | Use | Create | Delete] [name] [inputs]
+/saved_formulas list
+/saved_formulas read [name]
+/saved_formulas use [name] [inputs]
+/saved_formulas add
+/saved_formulas delete [name]
 ```
+
+1) **List:** This one simply lists out the names of all the saved scripts
+2) **Read:** The read command allows you to read the saved script and variables of a given formula
+3) **Use:** This command allows you to use any one of your scripts. The name being the name of the saved formula, and the inputs all seperated by commas.
+4) **Add:** This commands allows the user to add and create a new command (or set a previously existing one). The command opens up a popup, where you can input in the name of the formula, all its variables (all must be single characters), and the script. The script is not exactly a formula, and each line must begin with either `text:` or `eqnt:` to function. It works more like a program, and when there is a `text`, it will output all the raw text, unless you state `VAR:[variable_name]`, then the value of that variable will appear instead of the text. When there is `eqnt`, it will simply evaluate it with the given inputs. After all its done, the program will give the output in text. The text part can have formatting, while eqnt must use only the given variables, numbers, and operators.
+5) **Delete:** This command allows you to delete a script permanently.
 
 ### 5. Misc
 

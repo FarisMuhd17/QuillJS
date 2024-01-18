@@ -44,10 +44,7 @@ module.exports = {
 			.setTitle(cmd_type.toUpperCase())
 			.setDescription(files)
 			.setColor([31, 64, 194])
-			.setAuthor({
-				name: interaction.user.username,
-				iconURL: interaction.user.displayAvatarURL()
-			})
+			.setURL('https://www.github.com/FarisMuhd17/QuillJS')
 
 		await interaction.reply({ embeds: [embed], ephemeral: true })
 	}

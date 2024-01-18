@@ -3,7 +3,7 @@ const { ActionRowBuilder } = require('@discordjs/builders')
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('code')
+		.setName('display_code')
 		.setDescription('Create an embed of your code'),
 
 	async execute(interaction) {
