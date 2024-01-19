@@ -2,6 +2,7 @@
 
 1. saved_formulas.json
 2. primes.json
+3. periodic_table.json
 
 ### Saved formulas
 
@@ -10,3 +11,7 @@ The saved formulas is for storing all the saved formulas of each and every user.
 ### Primes
 
 This is a large json file containing the first 100000 primes for the math commands.
+
+### Periodic table
+
+Its a json file containing the name, symbol, and atomic number of every element in the periodic table

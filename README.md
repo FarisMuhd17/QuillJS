@@ -497,9 +497,18 @@ This is a [command](./source/commands/math/saved_formulas.js) that allows you to
 
 1) **List:** This one simply lists out the names of all the saved scripts
 2) **Read:** The read command allows you to read the saved script and variables of a given formula
-3) **Use:** This command allows you to use any one of your scripts. The name being the name of the saved formula, and the inputs all seperated by commas.
-4) **Add:** This commands allows the user to add and create a new command (or set a previously existing one). The command opens up a popup, where you can input in the name of the formula, all its variables (all must be single characters), and the script. The script is not exactly a formula, and each line must begin with either `text:` or `eqnt:` to function. It works more like a program, and when there is a `text`, it will output all the raw text, unless you state `VAR:[variable_name]`, then the value of that variable will appear instead of the text. When there is `eqnt`, it will simply evaluate it with the given inputs. After all its done, the program will give the output in text. The text part can have formatting, while eqnt must use only the given variables, numbers, and operators. If you wish for the program to not go to the next line after a statement, simply putting `CONT` at the end of the line can prevent it from going to the next line
+3) **Use:** This command allows you to use any one of your scripts. The name being the name of the saved formula, and the inputs all seperated by commas. The inputs can contain mathematical constants such as pi, e, phi, etc.
+4) **Add:** This commands allows the user to add and create a new command (or set a previously existing one). The command opens up a popup, where you can input in the name of the formula, all its variables (all must be single characters), and the script.
 5) **Delete:** This command allows you to delete a script permanently.
+
+**Script syntax**
+- Every line must begin with either `text:` or `eqnt:`
+- If the line starts with `text:`, then it will simply display the text present there
+- If the line starts with `eqnt:`, the program will evaluate that line with the substituted variables
+- The eqnt lines must always only have numbers, variables, operators, and whitespaces.
+- After each line, the program automatically goes to the next line. To prevent it, put `CONT` at the end of that line for it to continue to the next line.
+- If you want to display a variable in the text line with the inputted value, then you can state `VAR:[variable_name]`, and it will display the value of the inputted variable
+- Trigonometric functions such as sin, cos, and tan are supported
 
 **Example:** Here is an example of the simple script for the [quadratic equation](https://en.wikipedia.org/wiki/Quadratic_formula), with the name `QuadraticEqnt`:
 ```

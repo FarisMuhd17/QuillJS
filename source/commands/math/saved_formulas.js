@@ -85,6 +85,12 @@ module.exports = {
 				let scriptName = interaction.options.getString('name')
 				let inputs = interaction.options.getString('inputs').replaceAll(' ', '')
 
+				inputs = inputs.replaceAll('pi', "3.141592653589793")
+				inputs = inputs.replaceAll('e', "2.718281828459045")
+				inputs = inputs.replaceAll('tau', "6.283185307179586")
+				inputs = inputs.replaceAll('euler_gamma', "0.5772156649015329")
+				inputs = inputs.replaceAll('phi', "1.618033988749894")
+
 				if (!Object.keys(user_formulas).includes(scriptName)) {
 					await interaction.reply(`You have no formula named **${scriptName}**`)
 					break
@@ -127,11 +133,14 @@ module.exports = {
 					} else if (line.startsWith('eqnt')) {
 						line = line.replaceAll(' ', '')
 						line = line.replace('eqnt:', '')
-						line = line.replace(/pi/g, "3.141592653589793")
-						line = line.replace(/e/g, "2.718281828459045")
-						line = line.replace(/tau/g, "6.283185307179586")
-						line = line.replace(/euler_gamma/g, "0.5772156649015329")
-						line = line.replace(/phi/g, "1.618033988749894")
+						line = line.replaceAll('pi', "3.141592653589793")
+						line = line.replaceAll('e', "2.718281828459045")
+						line = line.replaceAll('tau', "6.283185307179586")
+						line = line.replaceAll('euler_gamma', "0.5772156649015329")
+						line = line.replaceAll('phi', "1.618033988749894")
+						line = line.replaceAll('sin', 'S')
+						line = line.replaceAll('cos', 'C')
+						line = line.replaceAll('tan', 'T')
 
 						let allowed_chars = [
 							'0', '1', '2', 
@@ -139,8 +148,13 @@ module.exports = {
 							'6', '7', '8', 
 							'9', '+', '-', 
 							'*', '/', '%', 
-							'(', ')', '.'
+							'(', ')', '.',
+							'S', 'C', 'T'
 						]
+
+						function S(x) { return Math.sin(x) }
+						function C(x) { return Math.cos(x) }
+						function T(x) { return Math.tan(x) }
 
 						let l = ''
 						for (let char of line) {
@@ -226,8 +240,6 @@ module.exports = {
 
 		for (let line of script.split('\n')) {
 			if (!(line.startsWith('text:') || line.startsWith('eqnt:'))) {
-				console.log(line)
-
 				await interaction.reply('Invalid script: Lines must begin with either `text` or `eqnt`:' + '```' + script + '```')
 				return
 			}
