@@ -10,7 +10,7 @@ The saved formulas is for storing all the saved formulas of each and every user.
 
 ### Primes
 
-This is a large json file containing the first 100000 primes for the math commands.
+This is a large json file containing the first 1,000,000 primes for the math commands.
 
 ### Periodic table
 

@@ -18,7 +18,7 @@ module.exports = {
 
 		if (bannedUser) {
 			await interaction.guild.members.unban(bannedUser.user)
-			await interaction.reply('User unbanned')
+			await interaction.reply(':white_check_mark: User unbanned')
 		} else {
 			await interaction.reply('User not found')
 		}

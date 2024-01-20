@@ -58,7 +58,7 @@ module.exports = {
 			case 'list':
 				if (Object.keys(user_formulas).length === 0) {
 					await interaction.reply('You have not created any formulas yet')
-					break
+					return
 				}
 
 				let output = ''
@@ -75,7 +75,7 @@ module.exports = {
 				let name = interaction.options.getString('name')
 				if (!Object.keys(user_formulas).includes(name)) {
 					await interaction.reply(`You have no formula named **${name}**`)
-					break
+					return
 				}
 
 				await interaction.reply(`**${name}:**` + '```' + user_formulas[name]['script'] + '```' + 'Variables:' + '```' + user_formulas[name]['variables'] + '```')
@@ -93,7 +93,7 @@ module.exports = {
 
 				if (!Object.keys(user_formulas).includes(scriptName)) {
 					await interaction.reply(`You have no formula named **${scriptName}**`)
-					break
+					return
 				}
 
 				let formulaInputs = {}
@@ -128,6 +128,16 @@ module.exports = {
 							}
 						}
 
+						l = l.replaceAll('CHAR:pi', 'π')
+						l = l.replaceAll('CHAR:upper_pi', 'Π')
+						l = l.replaceAll('CHAR:tau', '𝜏')
+						l = l.replaceAll('CHAR:phi', 'Φ')
+						l = l.replaceAll('CHAR:gamma', 'Γ')
+						l = l.replaceAll('CHAR:delta', 'Δ')
+						l = l.replaceAll('CHAR:zeta', 'ζ')
+						l = l.replaceAll('CHAR:theta', 'θ')
+						l = l.replaceAll('CHAR:sigma', 'Σ')
+
 						out += nextLineTrue ? l + '\n' : l
 
 					} else if (line.startsWith('eqnt')) {
@@ -149,7 +159,7 @@ module.exports = {
 							'9', '+', '-', 
 							'*', '/', '%', 
 							'(', ')', '.',
-							'S', 'C', 'T'
+							'S', 'C', 'T',
 						]
 
 						function S(x) { return Math.sin(x) }
@@ -177,7 +187,7 @@ module.exports = {
 
 					} else {
 						await interaction.reply('Invalid script')
-						break
+						return
 					}
 				}
 
@@ -246,14 +256,19 @@ module.exports = {
 		}
 
 		for (let variable of scriptVariables.split(',')) {
-			if (variable.length !== 1) {
-				await interaction.reply(`Invalid script: All variables must be 1 character long: \`${variable}\``)
+			if (variable.length !== 1 || variable === 'e') {
+				await interaction.reply(`Invalid script: All variables must be 1 character long and cannot use constants \`${variable}\``)
 				return
 			}
 		}
 
 		let json_file = path.join(path.join(path.dirname(path.dirname(__dirname)), 'data'), 'saved_formulas.json')
 		let json_data = require(json_file)
+
+		if (json_data[interaction.user.id][scriptName]) {
+			await interaction.reply(`Error: Script with name **${scriptName}** already exists\nYour inputs:\n\`\`\`${scriptName}\`\`\`\`\`\`${scriptVariables}\`\`\`\`\`\`${script}\`\`\``)
+			return
+		}
 
 		json_data[interaction.user.id][scriptName] = {
 			'script': script,

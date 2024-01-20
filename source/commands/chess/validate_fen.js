@@ -16,7 +16,7 @@ module.exports = {
 		let response = chess.validateFen(interaction.options.getString('fen'))
 
 		if (response["ok"]) {
-			await interaction.reply("The FEN is valid")
+			await interaction.reply(":white_check_mark: The FEN is valid")
 		} else {
 			await interaction.reply(`The FEN is invalid: ${response["error"]}`)
 		}

@@ -15,6 +15,7 @@ module.exports = {
 		let user = interaction.options.getUser('user')
 		let member = interaction.guild.members.cache.get(user.id)
 		await member.kick()
-    	await interaction.reply(`${user.tag} has been kicked from the server`)
+
+    	await interaction.reply(`**${user.tag}** has been kicked from the server`)
 	}
 }

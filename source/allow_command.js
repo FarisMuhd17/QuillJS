@@ -32,7 +32,7 @@ module.exports = {
 			(error, data) => {
 				if (error) {
 					message.channel.send(`An error occured: \`${error}\``)
-				} else message.channel.send(`Succesfully set **${split_message[1]}** to **${split_message[2]}**`)
+				} else message.channel.send(`:white_check_mark: Succesfully set **${split_message[1]}** to **${split_message[2]}**`)
 			}
 		)
 	},
@@ -53,12 +53,12 @@ module.exports = {
 		}
 
 		if (allowed.length !== 0) {
-			msg += 'Enabled commands:\n'
+			msg += ':green_circle: Enabled commands:\n'
 			for (let cmd of allowed) { msg += `- ${cmd}\n` }
 		}
 
 		if (not_allowed.length !== 0) {
-			msg += '\nDisabled commands:\n'
+			msg += '\n:red_circle: Disabled commands:\n'
 			for (let cmd of not_allowed) { msg += `- ${cmd}\n` }
 		}
 

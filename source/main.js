@@ -56,7 +56,7 @@ async function load_command(guild) {
 }
 
 client.on('ready', () => {
-	console.log(`[INFO] Launched as ${client.user.username}\n`)
+	console.log(`[INFO] Launched as ${client.user.username}#${client.user.discriminator}\n`)
 
 	client.guilds.cache.forEach(guild => {
 		(async () => {

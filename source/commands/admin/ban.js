@@ -14,6 +14,7 @@ module.exports = {
 	async execute(interaction) {
 		let user = interaction.options.getUser('user')
 		await interaction.guild.members.ban(user)
-    	await interaction.reply(`${user.tag} has been banned from the server`)
+
+    	await interaction.reply(`**${user.tag}** has been banned from the server`)
 	}
 }
