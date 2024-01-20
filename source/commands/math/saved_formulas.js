@@ -57,7 +57,7 @@ module.exports = {
 		switch (interaction.options.getSubcommand()) {
 			case 'list':
 				if (Object.keys(user_formulas).length === 0) {
-					await interaction.reply('You have not created any formulas yet')
+					await interaction.reply({ content: 'You have not created any formulas yet', ephemeral: true })
 					return
 				}
 
@@ -74,7 +74,7 @@ module.exports = {
 			case 'read':
 				let name = interaction.options.getString('name')
 				if (!Object.keys(user_formulas).includes(name)) {
-					await interaction.reply(`You have no formula named **${name}**`)
+					await interaction.reply({ content: `You have no formula named **${name}**`, ephemeral: true })
 					return
 				}
 
@@ -85,28 +85,28 @@ module.exports = {
 				let scriptName = interaction.options.getString('name')
 				let inputs = interaction.options.getString('inputs').replaceAll(' ', '')
 
+				if (!Object.keys(user_formulas).includes(scriptName)) {
+					await interaction.reply({ content: `You have no formula named **${scriptName}**`, ephemeral: true })
+					return
+				}
+
 				inputs = inputs.replaceAll('pi', "3.141592653589793")
 				inputs = inputs.replaceAll('e', "2.718281828459045")
 				inputs = inputs.replaceAll('tau', "6.283185307179586")
 				inputs = inputs.replaceAll('euler_gamma', "0.5772156649015329")
 				inputs = inputs.replaceAll('phi', "1.618033988749894")
 
-				if (!Object.keys(user_formulas).includes(scriptName)) {
-					await interaction.reply(`You have no formula named **${scriptName}**`)
-					return
-				}
-
 				let formulaInputs = {}
 				for (let term of inputs.split(',')) {
 					let term_parts = term.split('=')
 
 					if (isNaN(parseFloat(term_parts[1]))) {
-						await interaction.reply('All inputs to variables must be a number')
+						await interaction.reply({ content: 'All inputs to variables must be a number', ephemeral: true })
 						return
 					}
 
 					if (!user_formulas[scriptName]['variables'].includes(term_parts[0])) {
-						await interaction.reply(`Invalid input: \`${term_parts[0]}=${term_parts[1]}\``)
+						await interaction.reply({ content: `Invalid input: \`${term_parts[0]}=${term_parts[1]}\``, ephemeral: true })
 						return
 					}
 
@@ -120,7 +120,7 @@ module.exports = {
 					let nextLineTrue = !line.endsWith('CONT')
 					line = line.replaceAll('CONT', '')
 
-					if (line.startsWith('text')) {
+					if (line.startsWith('text:')) {
 						let l = line.replace('text:', '')
 						for (let variable of Object.keys(formulaInputs)) {
 							if (l.includes(`VAR:${variable}`)) {
@@ -137,10 +137,20 @@ module.exports = {
 						l = l.replaceAll('CHAR:zeta', 'ζ')
 						l = l.replaceAll('CHAR:theta', 'θ')
 						l = l.replaceAll('CHAR:sigma', 'Σ')
+						l = l.replaceAll('CHAR:exp_0', '⁰')
+						l = l.replaceAll('CHAR:exp_1', '¹')
+						l = l.replaceAll('CHAR:exp_2', '²')
+						l = l.replaceAll('CHAR:exp_3', '³')
+						l = l.replaceAll('CHAR:exp_4', '⁴')
+						l = l.replaceAll('CHAR:exp_5', '⁵')
+						l = l.replaceAll('CHAR:exp_6', '⁶')
+						l = l.replaceAll('CHAR:exp_7', '⁷')
+						l = l.replaceAll('CHAR:exp_8', '⁸')
+						l = l.replaceAll('CHAR:exp_9', '⁹')
 
 						out += nextLineTrue ? l + '\n' : l
 
-					} else if (line.startsWith('eqnt')) {
+					} else if (line.startsWith('eqnt:')) {
 						line = line.replaceAll(' ', '')
 						line = line.replace('eqnt:', '')
 						line = line.replaceAll('pi', "3.141592653589793")
@@ -174,11 +184,11 @@ module.exports = {
 								if (Object.keys(formulaInputs).includes(char)) {
 									l += formulaInputs[char]
 								} else {
-									await interaction.reply(`Unkown variable: \`${char}\``)
+									await interaction.reply({ content: `Unkown variable: \`${char}\``, ephemeral: true })
 									return
 								}
 							} else {
-								await interaction.reply(`Invalid character: \`${char}\``)
+								await interaction.reply({ content: `Invalid character: \`${char}\``, ephemeral: true })
 								return
 							}
 						}
@@ -186,7 +196,7 @@ module.exports = {
 						out += nextLineTrue ? eval(l).toString() + '\n' : eval(l).toString()
 
 					} else {
-						await interaction.reply('Invalid script')
+						await interaction.reply({ content: 'Invalid script: All lines must begin with either `text:` or `eqnt:`', ephemeral: true })
 						return
 					}
 				}
@@ -221,7 +231,6 @@ module.exports = {
 				)
 
 				await interaction.showModal(inputModal)
-
 				break
 
 			case 'delete':
@@ -234,8 +243,8 @@ module.exports = {
 					'utf8',
 					(error, data) => {
 						if (error) {
-							interaction.reply('An error occured: Try again later')
-						} else interaction.reply(`Delete **${scriptToDeleteName}**`)
+							interaction.reply({ content: 'An error occured: Try again later', ephemeral: true })
+						} else interaction.reply({ content: `Deleted **${scriptToDeleteName}**`, ephemeral: true })
 					}
 				)
 
@@ -251,13 +260,14 @@ module.exports = {
 		for (let line of script.split('\n')) {
 			if (!(line.startsWith('text:') || line.startsWith('eqnt:'))) {
 				await interaction.reply('Invalid script: Lines must begin with either `text` or `eqnt`:' + '```' + script + '```')
+
 				return
 			}
 		}
 
 		for (let variable of scriptVariables.split(',')) {
 			if (variable.length !== 1 || variable === 'e') {
-				await interaction.reply(`Invalid script: All variables must be 1 character long and cannot use constants \`${variable}\``)
+				await interaction.reply(`Invalid script: All variables must be 1 character long and cannot use constants \`${variable}\`:\`\`\`${script}\`\`\` `)
 				return
 			}
 		}
@@ -267,6 +277,7 @@ module.exports = {
 
 		if (json_data[interaction.user.id][scriptName]) {
 			await interaction.reply(`Error: Script with name **${scriptName}** already exists\nYour inputs:\n\`\`\`${scriptName}\`\`\`\`\`\`${scriptVariables}\`\`\`\`\`\`${script}\`\`\``)
+
 			return
 		}
 
@@ -281,7 +292,7 @@ module.exports = {
 			'utf8',
 			(error, data) => {
 				if (error) {
-					interaction.reply("An error occured")
+					interaction.reply("An error occured" + '```' + script + '```')
 				} else interaction.reply(`Succesfully saved \`${scriptName}\` as:` + '```' + script + '```')
 			}
 		)

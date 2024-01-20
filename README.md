@@ -509,7 +509,7 @@ This is a [command](./source/commands/math/saved_formulas.js) that allows you to
 - After each line, the program automatically goes to the next line. To prevent it, put `CONT` at the end of that line for it to continue to the next line.
 - If you want to display a variable in the text line with the inputted value, then you can state `VAR:[variable_name]`, and it will display the value of the inputted variable
 - Trigonometric functions such as sin, cos, and tan are supported
-- If you want to add some characters in the text line not there in your keyboard, for example the pi symbol, the `CHAR:[name]` statement can be used for many common characters. All the valid `CHAR` characters are the following:
+- If you want to add some characters in the text line not there in your keyboard, for example the pi symbol, the `CHAR:[name]` statement can be used for many common characters. Exponents can be expressed with `CHAR:exp_[exponent]`, obviously to express power of multiple digit, you simply put them together. All the valid `CHAR` characters are the following:
 ```
 CHAR:pi
 CHAR:upper_pi
@@ -519,6 +519,16 @@ CHAR:gamma
 CHAR:delta
 CHAR:zeta
 CHAR:sigma
+CHAR:exp_0
+CHAR:exp_1
+CHAR:exp_2
+CHAR:exp_3
+CHAR:exp_4
+CHAR:exp_5
+CHAR:exp_6
+CHAR:exp_7
+CHAR:exp_8
+CHAR:exp_9
 ```
 
 **Example:** Here is an example of the simple script for the [quadratic equation](https://en.wikipedia.org/wiki/Quadratic_formula), with the name `QuadraticEqnt`:
@@ -526,7 +536,7 @@ CHAR:sigma
 text:let **a** = VAR:a
 text:let **b** = VAR:b
 text:let **c** = VAR:c
-text:ax² + bx + c = VAR:ax + VAR:bx + VAR:c = 0 => x = CONT
+text:axCHAR:exp_2 + bx + c = VAR:axCHAR:exp_2 + VAR:bx + VAR:c = 0 => x = CONT
 eqnt: (-b + (b ** 2 - 4 * a * c) ** 0.5) / (2 * a) CONT
 text: or CONT
 eqnt: (-b - (b ** 2 - 4 * a * c) ** 0.5) / (2 * a)
