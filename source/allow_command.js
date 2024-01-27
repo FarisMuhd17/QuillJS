@@ -53,12 +53,12 @@ module.exports = {
 		}
 
 		if (allowed.length !== 0) {
-			msg += ':green_circle: Enabled commands:\n'
+			msg += 'Enabled commands:\n'
 			for (let cmd of allowed) { msg += `- ${cmd}\n` }
 		}
 
 		if (not_allowed.length !== 0) {
-			msg += '\n:red_circle: Disabled commands:\n'
+			msg += '\nDisabled commands:\n'
 			for (let cmd of not_allowed) { msg += `- ${cmd}\n` }
 		}
 

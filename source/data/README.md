@@ -3,6 +3,7 @@
 1. saved_formulas.json
 2. primes.json
 3. periodic_table.json
+4. chess_games.json
 
 ### Saved formulas
 
@@ -15,3 +16,7 @@ This is a large json file containing the first 1,000,000 primes for the math com
 ### Periodic table
 
 Its a json file containing the name, symbol, and atomic number of every element in the periodic table
+
+### Chess games
+
+It contains all the information and data for the `/chess` command

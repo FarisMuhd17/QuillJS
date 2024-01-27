@@ -1,5 +1,7 @@
 node_modules/
+website/
 .env
 source/allowed_commands.json
 source/data/saved_formulas.json
+source/data/chess_games.json
 TODO

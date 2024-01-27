@@ -51,7 +51,7 @@ q.cls # Clears the console
 q.deletemsg [message_id] # Deletes a message
 q.echo [user | channel] [object_id] [content] # Sends a message
 q.guild_ids # Collects the server IDs of all the servers the bot is in
-q. guild_names # Collects the names of the servers the bot is in
+q.guild_names # Collects the names of the servers the bot is in
 q.readfile [path] # Outputs the contents of a path
 q.readfolder [path] # Outputs the files and folders
 q.status [online | dnd | idle | invisible] # Change the status of the bot
@@ -136,6 +136,7 @@ The commands given as chess commands are the following:
 1. [possible_moves](./source/commands/chess/possible_moves.js)
 2. [random_game](./source/commands/chess/random_game.js)
 3. [validate_fen](./source/commands/chess/validate_fen.js)
+4. [chess](./source/commands/chess/chess.js)
 
 #### Possible moves
 
@@ -164,13 +165,39 @@ This [commands](./source/commands/chess/validate_fen.js) checks whether a given 
 /validate_fen [fen]
 ```
 
+#### Chess
+
+This [command](./source/commands/chess/chess.js) allows you to play chess in discord itself. It seperated into the following subcommands:
+
+```
+/chess challenge [user]
+/chess accept [user]
+/chess move [opponent] [move]
+/chess resign [opponent]
+/chess position [user] [opponent]
+/chess stats [user]
+/chess get_game [user_id] [opponent_id] [index]
+/chess total_games_against [user_id] [opponent_id]
+/chess current_games
+```
+
+1) **Challenge:** This subcommand allows you to challenge another user.
+2) **Accept:** This allows you to accept a challenge from another user.
+3) **Move:** Allows you to make a move in a current game. The move must be in algebraic notation.
+4) **Resign:** This allows you to resign a current game
+5) **Position:** This subcommand shows you the current position
+6) **Stats:** This shows you the total wins, losses, and draws made by a user
+7) **Get game:** Shows you a past game of a user against some other user
+8) **Total games against:** This gives you the total number of games a user has made against another
+9) **Current games:** This subcommand gives you all the total games being played currently
+
 ### 3. Code
 
 These are [commands](./source/commands/code) that are related to programming or files
 
 The commands that come under the code type are the following:
 
-1. [code](./source/commands/code/code.js)
+1. [display_code](./source/commands/code/display_code.js)
 2. [display_file](./source/commands/code/display_file.js)
 
 #### Display code
@@ -179,7 +206,7 @@ This [command](./source/commands/code/code.js) allows you to display a snippet o
 
 **Syntax**
 ```
-/code
+/display_code
 ```
 
 #### Display file
@@ -541,16 +568,16 @@ eqnt: (-b + (b ** 2 - 4 * a * c) ** 0.5) / (2 * a) CONT
 text: or CONT
 eqnt: (-b - (b ** 2 - 4 * a * c) ** 0.5) / (2 * a)
 ```
-If you run the following command, where a=1, b=2, and c=1:
+If you run the following command, where a=1, b=-3, and c=2:
 ```
-/saved_formulas use name: QuadraticEqnt inputs: a=1,b=2,c=1
+/saved_formulas use name: QuadraticEqnt inputs: a=1,b=-3,c=2
 ```
 The output should look like the following:
 ```
 let a = 1
 let b = 2
 let c = 1
-ax² + bx + c = 1x + 2x + 1 = 0 => x = -1 or -1
+ax² + bx + c = 1x² + 2x + 1 = 0 => x = 1 or 2
 ```
 
 ### 5. Misc
